@@ -13,6 +13,20 @@ import { createMuiTheme } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { AppContainer } from './components/BoasVindas'
 
+
+const theme = createMuiTheme({
+    palette:{
+        primary: {
+            main: '#ffa000'
+        },
+        secondary: amber['A900'],
+        tertiary: amber['A600'],
+        quaternary: amber['A200'],
+        quinary: amber['A50'],
+    }
+})
+
+
 const generateClassName = createGenerateClassName()
 const jss = create({
 	...jssPreset(),

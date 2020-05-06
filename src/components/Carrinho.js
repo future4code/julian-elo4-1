@@ -11,7 +11,7 @@ export class Carrinho extends React.Component{
       <div>
        header
       <div>
-<Botao variant="fab" size="medium" ><ShopIcon /></Botao>
+<Botao variant="fab" color="primary" size="medium" ><ShopIcon /></Botao>
 <br/>
 <br/>
 <br/>
