@@ -12,9 +12,9 @@ import { MuiThemeProvider, createGenerateClassName, jssPreset } from '@material-
 import { createMuiTheme } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { AppContainer } from './components/BoasVindas'
+import amber from '@material-ui/core/colors/amber';
 
-
-const theme = createMuiTheme({
+const MyTheme = createMuiTheme({
     palette:{
         primary: {
             main: '#ffa000'
@@ -33,12 +33,12 @@ const jss = create({
 	insertionPoint: document.getElementById('jss-insertion-point'),
 })
 
-const theme = createMuiTheme()
+// const theme = createMuiTheme()
 
 function App() {
 	return (
 		<JssProvider jss={jss} generateClassName={generateClassName}>
-			<MuiThemeProvider theme={theme}>
+			<MuiThemeProvider theme={MyTheme}>
 				<CssBaseline />
 				<AppContainer />
 			</MuiThemeProvider>
