@@ -1,5 +1,3 @@
-/*
-
 import React, { Component } from 'react'
 import ButtonCart from '@material-ui/core/Button'
 import CartIcon from '@material-ui/icons/ShoppingCart'
@@ -12,6 +10,7 @@ import '../App.css'
 const Container = styled.div`
     display: flex;
     flex-wrap: wrap;
+
     header {
         width: 100vw;
         height: 10vh;
@@ -82,6 +81,4 @@ export class DetalheProduto extends Component {
         </Container>
         )
     }
-} 
-
-*/
+}
