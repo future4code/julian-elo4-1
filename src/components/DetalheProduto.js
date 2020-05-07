@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+/* import React, { Component } from 'react'
 import ButtonCart from '@material-ui/core/Button'
 import CartIcon from '@material-ui/icons/ShoppingCart'
 import ButtonFav from '@material-ui/core/Button'
@@ -82,3 +82,4 @@ export class DetalheProduto extends Component {
         )
     }
 }
+*/
