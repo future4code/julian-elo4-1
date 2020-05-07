@@ -6,6 +6,17 @@ import FavIcon from '@material-ui/icons/Favorite'
 import styled from 'styled-components'
 import ImageGallery from 'react-image-gallery';
 import '../App.css'
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core'
+import amber from '@material-ui/core/colors/amber';
+
+const temaDetalheProduto = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#ffa000'
+        },
+        secondary: amber['A900']
+    }
+})
 
 const Container = styled.div`
     display: flex;
@@ -14,6 +25,10 @@ const Container = styled.div`
     header {
         width: 100vw;
         height: 10vh;
+    }
+
+    h2, h3 {
+        color: #E47106;
     }
 `
 
@@ -24,61 +39,111 @@ const Galeria = styled.div`
 
 const InfoProduto = styled.div`
     margin-left: 5vw;
+
+    .informacoesProduto {
+        margin: 1vw;
+    }    
+`
+
+const Descricao = styled.p`
+    margin: 1vw;
+    width: 40vw;
+    text-align: justify;
+`
+
+const ContainerBotoes = styled.div`
+    margin: 2vw;
+    display: flex;
+    width: 40vw;
+    justify-content: center;
+`
+
+const StyledButtonCart = styled(ButtonCart)`
+    flex-basis: 100%;
+    margin-right: 1vw;
+    width: 10vw;
+    height: 7vh;
+`
+
+const StyledButtonFav = styled(ButtonFav)`
+    flex-basis: 100%;
+    margin-right: 1vw;
+    width: 10vw;
+    height: 7vh;
 `
 
 export class DetalheProduto extends Component {
     state = {
-        produto: {
-            nome: 'Loren Ipsum',
-            imagem: 'https://picsum.photos/450',
-            preco: 10.99
-        }
+        produto: this.props.Produto
     }
 
     render() {
-        const images = [
-            {
-              original: 'https://picsum.photos/id/1018/1000/600/',
-              thumbnail: 'https://picsum.photos/id/1018/250/150/',
-            },
-            {
-              original: 'https://picsum.photos/id/1015/1000/600/',
-              thumbnail: 'https://picsum.photos/id/1015/250/150/',
-            },
-            {
-              original: 'https://picsum.photos/id/1019/1000/600/',
-              thumbnail: 'https://picsum.photos/id/1019/250/150/',
-            },
-          ];
+        console.log(this.state.produto)
+        let images = []
+        let formatoImagens = {
+            original: '',
+            thumbnail: ''
+        }
+
+        this.state.produto.map((produto) => {
+            return (
+                produto.photos.map((foto) => {
+                    return (
+                        formatoImagens = {
+                            original: foto,
+                            thumbnail: foto
+                        },
+                        images = [...images, formatoImagens]
+                    )
+                })
+            )
+        })
 
         return (
-        <Container>
-            <header>HEADER</header>
-            <Galeria>
-                <ImageGallery items={images} autoPlay={false}/>
-            </Galeria>
-            <InfoProduto>
-                <h2>{this.state.produto.nome}</h2>
-                <h3>
-                    {'R$'}
-                    {this.state.produto.preco}
-                </h3>
-                <p>Categoria: Decoração</p>
-                <p>Em até 10x de R$ 1,10 sem juros</p>
-                <ButtonCart variant='contained' >
-                    <CartIcon />
-                    Adicionar ao Carrinho
-                </ButtonCart>
-                <ButtonFav variant='contained'>
-                    <FavIcon />
-                    Favoritos
-                </ButtonFav>
-                <p>Método de pagamento: </p>
-                <p>
-                    <h4>Descrição</h4>
-                </p>
-            </InfoProduto>
-        </Container>
+            <MuiThemeProvider theme={temaDetalheProduto}>
+                <Container>
+                    <header>HEADER</header>
+                    <Galeria>
+                        <ImageGallery items={images} autoPlay={false} />
+                    </Galeria>
+                    {this.state.produto.map((produto) => {
+                        return (
+                            <InfoProduto>
+                                <h2 className={'informacoesProduto'}>{produto.name}</h2>
+                                <h3 className={'informacoesProduto'}>
+                                    {'R$'}
+                                    {produto.price}
+                                    {',00'}
+                                </h3>
+                                <p className={'informacoesProduto'}>Categoria: {produto.category}</p>
+                                {produto.paymentMethod === 'boleto' ? <div></div> : <p className={'informacoesProduto'}>Em até {produto.installments}x de R$ {(produto.price / produto.installments).toFixed(2)} sem juros.</p>}
+                                <ContainerBotoes>
+                                    <StyledButtonCart
+                                        variant='contained' 
+                                        color="primary"
+                                    >
+                                        <CartIcon />
+                                    Adicionar ao Carrinho
+                                </StyledButtonCart>
+                                    <StyledButtonFav
+                                        variant='contained'
+                                        color="primary"
+                                    >
+                                        <FavIcon />
+                                    Favoritos
+                                </StyledButtonFav>
+                                </ContainerBotoes>
+
+                                <p className={'informacoesProduto'}>Método de pagamento: {produto.paymentMethod}</p>
+                                <h4 className={'informacoesProduto'}>Descrição</h4>
+                                <Descricao>
+                                    {produto.description}
+                                </Descricao>
+                            </InfoProduto>
+                        )
+                    })}
+                </Container>
+            </MuiThemeProvider>
         )
     }
 }
