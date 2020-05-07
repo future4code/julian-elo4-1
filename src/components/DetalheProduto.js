@@ -1,3 +1,5 @@
+/*
+
 import React, { Component } from 'react'
 import ButtonCart from '@material-ui/core/Button'
 import CartIcon from '@material-ui/icons/ShoppingCart'
@@ -81,3 +83,5 @@ export class DetalheProduto extends Component {
         )
     }
 } 
+
+*/

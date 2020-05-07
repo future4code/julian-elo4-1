@@ -6,7 +6,7 @@ export class AppContainer extends Component {
   render() {
     return (
       <div>
-          <DetalheProduto />
+          <HomeUsuario />
           
       </div>
     )
