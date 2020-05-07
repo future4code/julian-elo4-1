@@ -1,6 +1,8 @@
 import React from 'react'
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core'
 import styled from 'styled-components'
+import Rodape from './Footer'
+import Cabecalho from './Header'
 
 import classNames from 'classnames';
 import amber from '@material-ui/core/colors/amber';
@@ -16,10 +18,9 @@ import MaisIcon from '@material-ui/icons/Add'
 
 import Promocional from '../img/promo.png'
 
-const Pontas = styled.div`
-    height: 20vh;
-    background-color: #ff6f00;
-    color: #fff8e1;
+const TelaToda = styled.div `
+    margin:0;
+    padding:0;
 `
 const Container = styled.section `
     min-height: 80vh;
@@ -30,32 +31,9 @@ const Container = styled.section `
 const QuadradoImg = styled.div`
     width: 12vw;
     height: 12vw;
-    -webkit-transition: all 0.5s ease; /* Safari e Chrome */
-    -moz-transition: all 0.5s ease; /* Firefox */
-    -ms-transition: all 0.5s ease; /* IE 9 */
-    -o-transition: all 0.5s ease; /* Opera */
-    transition: all 0.5s ease;
-    :hover{ 
-        width: 24vw;
-        height: 24vw;
-    }
-
 `
 const FotoProduto = styled.img `
-    height: 12vw;
     width: 12vw;
-    -webkit-transition: all 0.5s ease; /* Safari e Chrome */
-    -moz-transition: all 0.5s ease; /* Firefox */
-    -ms-transition: all 0.5s ease; /* IE 9 */
-    -o-transition: all 0.5s ease; /* Opera */
-    transition: all 0.5s ease;
-    :hover{    
-        -webkit-transform: scale(2) translate(25%,25%); /* Safari e Chrome */
-        -moz-transform:scale(2) translate(25%,25%); /* Firefox */
-        -ms-transform:scale(2) translate(25%,25%); /* IE 9 */
-        -o-transform:scale(2) translate(25%,25%); /* Opera */
-        transform:scale(2) translate(25%,25%);
-    }
 `
 const Navegaçao =styled.nav`
     max-height: 80vh;
@@ -92,17 +70,9 @@ const Mostruario = styled.div`
     margin-top: 4vw;
 `
 const Cupom = styled.img`
-    width: 20vw;
-    -webkit-transition: all 1.5s ease; /* Safari e Chrome */
-    -moz-transition: all 1.5s ease; /* Firefox */
-    -ms-transition: all 1.5s ease; /* IE 9 */
-    -o-transition: all 1.5s ease; /* Opera */
+    width: 30vw;
     transition: all 1.5s ease;
-    :hover{    
-        -webkit-transform:scale(2); /* Safari e Chrome */
-        -moz-transform:scale(2); /* Firefox */
-        -ms-transform:scale(2); /* IE 9 */
-        -o-transform:scale(2); /* Opera */
+    :hover{    /* Opera */
         transform:scale(2);
     }
 `
@@ -117,6 +87,10 @@ const BotaoMaisDetalhes = styled(Button)`
     justify-content: space-around;
 `
 const InputValor = styled(TextField)`
+    &&{
+        background-color: rgba(255, 143, 0, 0.2);
+        border-radius: 10px 10px 0 0;
+    }
 `
 const IconeFiltro = styled(IconFilter)`
     font-size: 3vw;
@@ -173,6 +147,10 @@ const CardProduto = styled.div `
     padding: 0.4vw;
     width: 18vw;
     min-height: 20vw;
+        transition: all 0.5s ease;
+    :hover{ 
+        transform: scale(1.08)
+    }
 `
 const styles = theme => ({
     root: {
@@ -394,61 +372,65 @@ class HomeUsuario extends React.Component {
         }); 
   
   return (
-    <MuiThemeProvider theme={MyTheme}>
-        <Pontas><h1>Cabeçalho</h1></Pontas>
-        <Container>
-            <Navegaçao>
-                <TituloNavegacao>Categorias</TituloNavegacao>
-                <Categorias>Acessórios</Categorias>
-                <Categorias>Convites</Categorias>
-                <Categorias>Decoração</Categorias>
-                <Categorias>Eco</Categorias>
-                <Categorias>Pets</Categorias>
-                <Categorias>Roupas</Categorias>
-            </Navegaçao>
-
-            <ConteudoPrincipal>
-                <SuperiorProdutos>
-                    <Cupom src={Promocional} alt='Código Promocional'></Cupom>
-                    <Filtros>
-                        <LegendaFiltros>
-                            <IconeFiltro />&nbsp;
-                            <TituloFiltros>&nbsp; Filtros</TituloFiltros>
-                        </LegendaFiltros>
-                        <Parametros className={classes.root}>
-                            <InputValor
-                                id="inputMaximo"
-                                className={classNames(classes.margin, classes.textField)}
-                                variant="filled"
-                                label="Valor Máximo"
-                                value={this.state.valorMaximo}
-                                onChange={this.handleChange('valorMaximo')}
-                                InputProps={{
-                                  endAdornment: <InputAdornment position="end">R$</InputAdornment>,
-                                }}
-                            />
-                            <InputValor
-                                id="inputMinimo"
-                                className={classNames(classes.margin, classes.textField)}
-                                variant="filled"
-                                label="Valor Mínimo"
-                                value={this.state.valorMinimo}
-                                onChange={this.handleChange('valorMinimo')}
-                                InputProps={{
-                                  endAdornment: <InputAdornment position="end">R$</InputAdornment>,
-                                }}
-                            />
-                        </Parametros>
-                    </Filtros>
-                </SuperiorProdutos>
-                
-                <Mostruario>
-                    {produtosSite}
-                </Mostruario>
-            </ConteudoPrincipal>
-        </Container>
-        <Pontas><h1>Rodapé</h1></Pontas>
-    </MuiThemeProvider>
+    <TelaToda>
+        <MuiThemeProvider theme={MyTheme}>
+            <Cabecalho />
+            <Container>
+                <Navegaçao>
+                    <TituloNavegacao>Categorias</TituloNavegacao>
+                    <Categorias>Acessórios</Categorias>
+                    <Categorias>Convites</Categorias>
+                    <Categorias>Decoração</Categorias>
+                    <Categorias>Eco</Categorias>
+                    <Categorias>Pets</Categorias>
+                    <Categorias>Roupas</Categorias>
+                </Navegaçao>
+    
+                <ConteudoPrincipal>
+                    <SuperiorProdutos>
+                        <Cupom src={Promocional} alt='Código Promocional'></Cupom>
+                        <Filtros>
+                            <LegendaFiltros>
+                                <IconeFiltro />&nbsp;
+                                <TituloFiltros>&nbsp; Filtros</TituloFiltros>
+                            </LegendaFiltros>
+                            <Parametros className={classes.root}>
+                                <InputValor
+                                    id="inputMaximo"
+                                    className={classNames(classes.margin, classes.textField)}
+                                    variant="filled"
+                                    color="primary"
+                                    label="Valor Máximo"
+                                    value={this.state.valorMaximo}
+                                    onChange={this.handleChange('valorMaximo')}
+                                    InputProps={{
+                                      endAdornment: <InputAdornment position="end">R$</InputAdornment>,
+                                    }}
+                                />
+                                <InputValor
+                                    id="inputMinimo"
+                                    className={classNames(classes.margin, classes.textField)}
+                                    color="primary"
+                                    variant="filled"
+                                    label="Valor Mínimo"
+                                    value={this.state.valorMinimo}
+                                    onChange={this.handleChange('valorMinimo')}
+                                    InputProps={{
+                                      endAdornment: <InputAdornment position="end">R$</InputAdornment>,
+                                    }}
+                                />
+                            </Parametros>
+                        </Filtros>
+                    </SuperiorProdutos>
+                    
+                    <Mostruario>
+                        {produtosSite}
+                    </Mostruario>
+                </ConteudoPrincipal>
+            </Container>
+            <Rodape />
+        </MuiThemeProvider>
+    </TelaToda>
   );
   }     
 }
