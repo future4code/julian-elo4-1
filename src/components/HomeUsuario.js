@@ -30,32 +30,19 @@ const Container = styled.section `
 const QuadradoImg = styled.div`
     width: 12vw;
     height: 12vw;
-    -webkit-transition: all 0.5s ease; /* Safari e Chrome */
-    -moz-transition: all 0.5s ease; /* Firefox */
-    -ms-transition: all 0.5s ease; /* IE 9 */
-    -o-transition: all 0.5s ease; /* Opera */
     transition: all 0.5s ease;
     :hover{ 
-        width: 24vw;
-        height: 24vw;
+        transform: scale(1.1)
     }
 
 `
 const FotoProduto = styled.img `
     height: 12vw;
     width: 12vw;
-    -webkit-transition: all 0.5s ease; /* Safari e Chrome */
-    -moz-transition: all 0.5s ease; /* Firefox */
-    -ms-transition: all 0.5s ease; /* IE 9 */
-    -o-transition: all 0.5s ease; /* Opera */
     transition: all 0.5s ease;
-    :hover{    
-        -webkit-transform: scale(2) translate(25%,25%); /* Safari e Chrome */
-        -moz-transform:scale(2) translate(25%,25%); /* Firefox */
-        -ms-transform:scale(2) translate(25%,25%); /* IE 9 */
-        -o-transform:scale(2) translate(25%,25%); /* Opera */
+    /*:hover{    
         transform:scale(2) translate(25%,25%);
-    }
+    }*/
 `
 const Navegaçao =styled.nav`
     max-height: 80vh;
@@ -420,6 +407,7 @@ class HomeUsuario extends React.Component {
                                 id="inputMaximo"
                                 className={classNames(classes.margin, classes.textField)}
                                 variant="filled"
+                                color="primary"
                                 label="Valor Máximo"
                                 value={this.state.valorMaximo}
                                 onChange={this.handleChange('valorMaximo')}
@@ -430,6 +418,7 @@ class HomeUsuario extends React.Component {
                             <InputValor
                                 id="inputMinimo"
                                 className={classNames(classes.margin, classes.textField)}
+                                color="primary"
                                 variant="filled"
                                 label="Valor Mínimo"
                                 value={this.state.valorMinimo}
