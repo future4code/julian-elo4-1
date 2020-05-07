@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
-
+import Cabecalho from './Header'
 import Button from '@material-ui/core/Button'
 import ShopIcon from '@material-ui/icons/AddShoppingCart'
 
@@ -25,14 +25,13 @@ const BotaoFinalizar = styled.div`
 `
 
 
+
 export class Carrinho extends React.Component{
 
     render() {
     return (
-    <div>
-    
-      <Pontas><h1>Header</h1></Pontas>
-      <br/>
+    <div>     
+      <br/><Cabecalho/>
       <BotaoAdicionar>
 <Button variant="fab" color="primary" size="medium" ><ShopIcon /></Button>
       </BotaoAdicionar> 
