@@ -12,6 +12,34 @@ const FundoRodape = styled.div`
     height: 30vh;
     background-color: #ff8f00;
     color: #fff8e1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
+const Informacoes = styled.section`
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+`
+const FormContato = styled.section`
+`
+const FormasPag = styled.section`
+`
+const Certificados = styled.section`
+`
+const TituloPag = styled.h4`
+`
+const ImagemPag = styled.img`
+`
+const TextoPag = styled.p`
+`
+const RedesSociais = styled.section`
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
 `
 const TelaToda = styled.div `
     margin:0;
@@ -68,7 +96,16 @@ class Rodape extends React.Component {
     <TelaToda>
         <MuiThemeProvider theme={MyTheme}>
             <FundoRodape>
-                <h1>Oi!</h1>
+                <Informacoes>
+                    <FormContato></FormContato>
+                    <FormasPag>
+                        <TituloPag>MEIOS DE PAGAMENTO</TituloPag>
+                        <FormasPag></FormasPag>
+                        <TextoPag>Parcelamos em até 12x no cartão de crédito</TextoPag>
+                    </FormasPag>
+                    <Certificados></Certificados>
+                </Informacoes>
+                <RedesSociais></RedesSociais>
             </FundoRodape>
         </MuiThemeProvider>
     </TelaToda>
