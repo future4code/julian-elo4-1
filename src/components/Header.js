@@ -147,7 +147,7 @@ class Cabecalho extends React.Component {
                         <ContainerPesquisa>
                             <InputPesquisar
                               id="filled-adornment-procurar"
-                              className={classNames(classes.margin, classes.textField)}
+                              className={classNames(classes.margin, classes.textField, classes.label)}
                               variant="filled"
                               type={this.state.showProcurar ? 'text' : 'procurar'}
                               label="Procurar"

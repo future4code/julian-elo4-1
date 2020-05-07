@@ -14,6 +14,16 @@ import TextField from '@material-ui/core/TextField';
 import red from '@material-ui/core/colors/red';
 import Button from '@material-ui/core/Button'
 import MaisIcon from '@material-ui/icons/Add'
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import FilledInput from '@material-ui/core/FilledInput';
+import ZoomMais from '@material-ui/icons/ZoomIn';
+import ZoomMenos from '@material-ui/icons/ZoomOut';
 //import axios from 'axios'
 
 import Promocional from '../img/promo.png'
@@ -27,13 +37,45 @@ const Container = styled.section `
     color: #ff6f00;
     background-color: #fff8e1;
     display: flex;
+    
+`
+const PromocaoSite = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; 
+`
+const MaisZoom = styled(ZoomMais)`
+    cursor: pointer;
+    &&{
+        font-size: 2.5vw;
+        color: #363636;
+    }
+`
+const MenosZoom = styled(ZoomMenos)`
+    cursor: pointer;
+    &&{
+        font-size: 2.5vw;
+        color: #363636;
+    }
+`
+const ContainerZoom = styled.section`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 `
 const QuadradoImg = styled.div`
-    width: 12vw;
-    height: 12vw;
+    height: 15vw;
+    width: 15vw;
+    position: relative;
+    overflow: hidden;
 `
 const FotoProduto = styled.img `
-    width: 12vw;
+    width: 20vw;
+    position: absolute;
+    left: -20%;
+    top: 0%;
+ 
 `
 const Navegaçao =styled.nav`
     max-height: 80vh;
@@ -45,12 +87,14 @@ const Navegaçao =styled.nav`
     padding: 1vw 0.5vw;
     width: 15vw;
 `
-const TituloNavegacao = styled.h2`
+const TituloNavegacao = styled.p`
     color: #363636;;
     font-weight: bold;
+    font-size: 2vw;
 `
 const Categorias = styled.p`
-    color: #363636;;
+    color: #363636;
+    font-size: 1.5vw;
 `
 const ConteudoPrincipal = styled.div`
     color: #ff6f00;
@@ -60,6 +104,7 @@ const ConteudoPrincipal = styled.div`
 const SuperiorProdutos = styled.section`
     display: flex;
     justify-content: space-around;
+    align-items: center;
     width: 80vw;
 `
 const Mostruario = styled.div`
@@ -69,12 +114,11 @@ const Mostruario = styled.div`
     grid-template-rows: 1fr 1fr 1fr; 
     margin-top: 4vw;
 `
-const Cupom = styled.img`
-    width: 30vw;
-    transition: all 1.5s ease;
-    :hover{    /* Opera */
-        transform:scale(2);
-    }
+const Cupom1 = styled.img`
+    width: 25vw; 
+`
+const Cupom2 = styled.img `
+    width: 40vw; 
 `
 const Filtros = styled.section`
 `
@@ -86,7 +130,13 @@ const BotaoMaisDetalhes = styled(Button)`
     display: flex;
     justify-content: space-around;
 `
-const InputValor = styled(TextField)`
+const InputFiltro = styled(TextField)`
+    &&{
+        background-color: rgba(255, 143, 0, 0.2);
+        border-radius: 10px 10px 0 0;
+    }
+`
+const InputSelect = styled(FormControl)`
     &&{
         background-color: rgba(255, 143, 0, 0.2);
         border-radius: 10px 10px 0 0;
@@ -94,12 +144,6 @@ const InputValor = styled(TextField)`
 `
 const IconeFiltro = styled(IconFilter)`
     font-size: 3vw;
-`
-const LegendaFiltros = styled.div `
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
 `
 const InferiorProdutos = styled.div `
     display: flex;
@@ -131,6 +175,10 @@ const TituloProduto = styled.p `
     color: #363636;
     font-weight: bold;
 
+`
+const Form = styled.div`
+        display: flex;
+        flex-wrap: nowrap;
 `
 const Parametros = styled.section `
     display: flex;
@@ -176,7 +224,17 @@ const styles = theme => ({
     extendedIcon: {
         marginRight: theme.spacing.unit,
     },
-  },
+    },
+    formControl: {
+      margin: theme.spacing.unit,
+      minWidth: 200,
+    },
+    selectEmpty: {
+        marginTop: theme.spacing.unit * 2,
+    },
+    label: {
+        marginLeft: "2vw"
+    }
 });
 
 const MyTheme = createMuiTheme({
@@ -194,6 +252,9 @@ class HomeUsuario extends React.Component {
   state = {
     valorMaximo: '',
     valorMinimo: '',
+    open: false,
+    ordem: '',
+    isZoom: false,
     produtos: [
         {
             "description": "Pijama cirúrgico em tecido 1025% algodão de alta qualidade. O conjunto é composto por duas peças: uma calça comprida de corte reto; e uma camisa de mangas curtas, gola V arredondada, modelagem ajustada ao corpo e dois bolsos. Os dois bolsos básicos são perfeitos para o transporte de pequenos objetos que devem estar sempre a mão. proporcionando boa respirabilidade à pele e flexibilidade. têm caimento perfeito e garantem bem-estar ao longo de todo o dia.",
@@ -342,34 +403,69 @@ class HomeUsuario extends React.Component {
     ],
   };
 
-  handleChange = prop => event => {
+  handleChangeOrdem = prop => event => {
     this.setState({ [prop]: event.target.value });
+  };
+
+  handleChangeValor = name => event => {
+    this.setState({ [name]: Number(event.target.value) });
+  };
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  aumentaImagem =() =>{
+    console.log('funcionou+')
+    this.setState({isZoom: !this.state.isZoom})
+  }
+  diminuiImagem =() =>{
+    console.log('funcionou-')
+    this.setState({isZoom: !this.state.isZoom})
+  }
+  handleClose = () => {
+    this.setState({ open: false });
   };
 
   render(){
   const { classes } = this.props;
+  console.log(`O estado do is Zoom é ${this.state.isZoom}`)
+  
+  let cupomAparecendo: ''
 
+  switch (this.state.isZoom) {
+    case false:
+      cupomAparecendo =(<Cupom1 src={Promocional} alt='Código Promocional'/>)
+      break;
+    case true:
+      cupomAparecendo =(<Cupom2 src={Promocional} alt='Código Promocional'/>)
+      break;
+    default:
+        break;
+    
+  }
+   
   const produtosSite = this.state.produtos.map((produto) => {
-            return <CardProduto>
-                <QuadradoImg>
-                    <FotoProduto src={produto.photos} alt='Foto do Produto'/></QuadradoImg>
-                <InferiorProdutos>
-                    <LegendaProdutos>
-                        <TituloProduto>{produto.name}</TituloProduto>
-                        <PrecoProduto> R$ {produto.price},00 </PrecoProduto>
-                    </LegendaProdutos>
-                    <BotaoMaisDetalhes
-                        variant="contained"
-                        color="primary"
-                        aria-label="Add"
-                        className={classes.margin}
-                    >
-                        <MaisIcon className={classes.extendedIcon} />
-                        Detalhes
-                    </BotaoMaisDetalhes>
-                </InferiorProdutos>
-                </CardProduto>
-        }); 
+    return <CardProduto>
+        <QuadradoImg>
+            <FotoProduto src={produto.photos} alt='Foto do Produto'/></QuadradoImg>
+        <InferiorProdutos>
+            <LegendaProdutos>
+                <TituloProduto>{produto.name}</TituloProduto>
+                <PrecoProduto> R$ {produto.price},00 </PrecoProduto>
+            </LegendaProdutos>
+            <BotaoMaisDetalhes
+                variant="contained"
+                color="primary"
+                aria-label="Add"
+                className={classes.margin}
+            >
+                <MaisIcon className={classes.extendedIcon} />
+                Detalhes
+            </BotaoMaisDetalhes>
+        </InferiorProdutos>
+        </CardProduto>
+}); 
   
   return (
     <TelaToda>
@@ -388,38 +484,81 @@ class HomeUsuario extends React.Component {
     
                 <ConteudoPrincipal>
                     <SuperiorProdutos>
-                        <Cupom src={Promocional} alt='Código Promocional'></Cupom>
+                        <PromocaoSite>
+                            <div>
+                                {cupomAparecendo}
+                            </div>
+                            <ContainerZoom>
+                                <MaisZoom onClick={this.aumentaImagem}/>
+                                <MenosZoom onClick={this.diminuiImagem}/>
+                            </ContainerZoom>
+                        </PromocaoSite>
                         <Filtros>
-                            <LegendaFiltros>
+                            <Button onClick = {this.handleClickOpen} >
                                 <IconeFiltro />&nbsp;
                                 <TituloFiltros>&nbsp; Filtros</TituloFiltros>
-                            </LegendaFiltros>
-                            <Parametros className={classes.root}>
-                                <InputValor
-                                    id="inputMaximo"
-                                    className={classNames(classes.margin, classes.textField)}
-                                    variant="filled"
-                                    color="primary"
-                                    label="Valor Máximo"
-                                    value={this.state.valorMaximo}
-                                    onChange={this.handleChange('valorMaximo')}
-                                    InputProps={{
-                                      endAdornment: <InputAdornment position="end">R$</InputAdornment>,
-                                    }}
-                                />
-                                <InputValor
-                                    id="inputMinimo"
-                                    className={classNames(classes.margin, classes.textField)}
-                                    color="primary"
-                                    variant="filled"
-                                    label="Valor Mínimo"
-                                    value={this.state.valorMinimo}
-                                    onChange={this.handleChange('valorMinimo')}
-                                    InputProps={{
-                                      endAdornment: <InputAdornment position="end">R$</InputAdornment>,
-                                    }}
-                                />
-                            </Parametros>
+                            </Button>
+                            <Button onClick={this.handleClickOpen}></Button>
+                            <Dialog
+                              disableBackdropClick
+                              disableEscapeKeyDown
+                              open={this.state.open}
+                              onClose={this.handleClose}
+                            >
+                              <DialogTitle>Escolha os Filtros</DialogTitle>
+                              <DialogContent>
+                                <Form>                                    
+                                    <InputFiltro
+                                        id="inputMaximo"
+                                        className={classNames(classes.margin, classes.textField)}
+                                        variant="filled"
+                                        color="primary"
+                                        label="Valor Máximo"
+                                        value={this.state.valorMaximo}
+                                        onChange={this.handleChangeValor('valorMaximo')}
+                                        InputProps={{
+                                          endAdornment: <InputAdornment position="end">R$</InputAdornment>,
+                                        }}
+                                    />
+                                    <InputFiltro
+                                        id="inputMinimo"
+                                        className={classNames(classes.margin, classes.textField)}
+                                        color="primary"
+                                        variant="filled"
+                                        label="Valor Mínimo"
+                                        value={this.state.valorMinimo}
+                                        onChange={this.handleChangeValor('valorMinimo')}
+                                        InputProps={{
+                                          endAdornment: <InputAdornment position="end">R$</InputAdornment>,
+                                        }}
+                                    />
+                                    
+                                  
+                                    <InputSelect className={classes.formControl}>
+                                        <InputLabel className={classes.label}>Ordem Preço</InputLabel>
+                                        <Select
+                                          native
+                                          value={this.state.ordem}
+                                          onChange={this.handleChangeOrdem('ordem')}
+                                          input={<FilledInput name="ordem" id="filled-ordem-native-simple" />}
+                                        >
+                                          <option value=""></option>
+                                          <option value="crecente">Crescente</option>
+                                          <option value="decrecente">Decrescente</option>
+                                        </Select>
+                                  </InputSelect>
+                                </Form>
+                              </DialogContent>
+                              <DialogActions>
+                                <Button onClick={this.handleClose} color="primary">
+                                  Cancel
+                                </Button>
+                                <Button onClick={this.handleClose} color="primary">
+                                  Ok
+                                </Button>
+                              </DialogActions>
+                            </Dialog>
+                            
                         </Filtros>
                     </SuperiorProdutos>
                     
