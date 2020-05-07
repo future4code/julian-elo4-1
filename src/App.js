@@ -17,15 +17,13 @@ import amber from '@material-ui/core/colors/amber';
 const MyTheme = createMuiTheme({
     palette:{
         primary: {
-            main: '#ffa000'
+            main: '#ff8f00'
         },
-        secondary: amber['A900'],
-        tertiary: amber['A600'],
-        quaternary: amber['A200'],
-        quinary: amber['A50'],
+        secondary: {
+            main: '#fff8e1'
+        }
     }
 })
-
 
 const generateClassName = createGenerateClassName()
 const jss = create({
