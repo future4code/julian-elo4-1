@@ -16,11 +16,6 @@ const BotaoAdicionar = styled.div`
 
 `
 const BotaoFinalizar = styled.div`
-    
-
-
-  
-    
 
 `
 
