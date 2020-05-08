@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import HomeUsuario from './HomeUsuario'
+import AdicionaProduto from './AdicionaProduto'
 
 export class AppContainer extends Component {
   render() {
     return (
-      <HomeUsuario />
+      <AdicionaProduto />
     )
   }
 }
