@@ -1,8 +1,9 @@
-import React from 'react';
+import React from 'react'
 import styled from 'styled-components';
 import Cabecalho from './Header';
 import Button from '@material-ui/core/Button';
 import ShopIcon from '@material-ui/icons/AddShoppingCart';
+import Footer from './Footer'
 
 const Pontas = styled.div`
     height: 20vh;
@@ -10,14 +11,36 @@ const Pontas = styled.div`
     color: #fff8e1;
 `
 const BotaoAdicionar = styled.div`
-    
+    display: flex;
+
 `
 const BotaoFinalizar = styled.div`
     display:flex ;
     justify-content:center;
     
 `
+const ProdutosDaLoja = styled.div`
+    padding: 30px;
+  
+`
+const LegendaDosProdutos = styled.div`
+
+`
+
+const ImagemDoProduto = styled.div`
+
+`
+
+const DivDosProdutos = styled.div`
+
+`
+
+const RodapeSite = styled.div`
+
+`
+
 const TituloDoProduto = styled.p`
+
     margin: 0.5vw 0 0 0.5vw;
     font-size:1vw;
     color: #363636;
@@ -41,7 +64,7 @@ height: 12vw;
 `
 
 
-const Container = styled.div `
+const Container = styled.div`
     padding-top: 30px;
     height: 100vh;
     width: 100vw;
@@ -50,13 +73,13 @@ const Container = styled.div `
      
 `
 
-export class Carrinho extends React.Component{
+class Carrinho extends React.Component {
 
-      state = {
+    state = {
         valorMaximo: '',
         valorMinimo: '',
         produtos: [
-                {
+            {
                 "description": "Luminária personalizada com foto, para eternizar aquele momento especial com uma peça surpreendente...",
                 "paymentMethod": "card",
                 "photos": [
@@ -67,8 +90,8 @@ export class Carrinho extends React.Component{
                 "category": "Decoração",
                 "price": 120,
                 "id": "JmtX1h8Ry1qt2xLpz8SB"
-              },
-              {
+            },
+            {
                 "name": "Máscara Anatômica ",
                 "installments": 3,
                 "category": "Artesanato",
@@ -92,64 +115,68 @@ export class Carrinho extends React.Component{
                 "name": "Plantinhas Suculentas para Casamentos",
                 "id": "4z0TjSD2ElU4wqdYe96S"
             }
-              
-          ],
-        }
-      
+
+        ],
+    }
+
 
 
 
 
     render() {
-    
-     const produtosDoSite = this.state.produtos.map((produto) => {
-      return <div>
-        <div>
-        <FotoDoProduto src={produto.photos} alt="Foto do produto" />
-        </div>
-        <div className="Legenda-Produtos">
-     <TituloDoProduto>{produto.name}</TituloDoProduto>
-     <PrecoDoProduto>R${produto.price},00</PrecoDoProduto>
-      </div>     
-     </div>
-    })
 
-    return (
-    <div>
-      
-        <Cabecalho />
-        <Container>
+        const produtosDoSite = this.state.produtos.map((produto) => {
+            return (
+                <ProdutosDaLoja>
+                    <ImagemDoProduto>
+                        <FotoDoProduto src={produto.photos} alt="Foto do produto" />
+                    </ImagemDoProduto>
+                    <LegendaDosProdutos>
+                        <TituloDoProduto>{produto.name}</TituloDoProduto>
+                        <PrecoDoProduto>R${produto.price},00</PrecoDoProduto>
+                    </LegendaDosProdutos>
+                </ProdutosDaLoja>
+            )
+        })
 
-            <h2>Bem vindo ao seu carrinho de compras!</h2>  
+        return (
+            <div>
 
-            <BotaoAdicionar>
-                <Button 
-                    variant="fab" 
-                    color="primary" 
-                    size="medium" >
-                <ShopIcon />
+                <Cabecalho />
+                <Container>
+
+                    <h2>Bem vindo ao seu carrinho de compras!</h2>
+
+                    <BotaoAdicionar>
+                        <Button
+                            variant="fab"
+                            color="primary"
+                            size="medium" >
+                            <ShopIcon />
+                        </Button>
+                    </BotaoAdicionar>
+
+                    <BotaoFinalizar>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            size="small" >
+                            Finalizar compra
                 </Button>
-             </BotaoAdicionar> 
+                    </BotaoFinalizar>
 
-            <BotaoFinalizar> 
-                <Button 
-                    variant="contained"
-                    color="primary"
-                    size="small" >
-                    Finalizar compra
-                </Button>
-            </BotaoFinalizar>
+                    <DivDosProdutos>{produtosDoSite}</DivDosProdutos>
 
-            <div>{produtosDoSite}</div>
-        
-        </Container>
-        
-        <div>
-            <Pontas></Pontas>
-        </div>
-    </div>
-    )};  
-  
-  }
-    
-  
+                </Container>
+
+                <RodapeSite>
+                    <Footer></Footer>
+                </RodapeSite>
+            </div>
+        )
+    };
+
+}
+
+export default (Carrinho);
+

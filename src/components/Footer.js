@@ -5,6 +5,11 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
 import Pagamentos from '../img/pag.png'
+import LogoTwitter from '../img/twitter.png'
+import LogoFace from '../img/facebook.png'
+import LogoInstagram from '../img/instagram.png'
+import LogoSeg1 from '../img/seguranca1.png'
+import LogoSeg2 from '../img/seguranca2.png'
 
 const FundoRodape = styled.div`
     width: 100%;
@@ -23,8 +28,10 @@ const Informacoes = styled.section`
     align-items: center;
 `
 const FormContato = styled.section`
+padding-left:4vw;
 `
 const FormasPag = styled.section`
+
 `
 const Certificados = styled.section`
 `
@@ -33,13 +40,30 @@ const TituloPag = styled.h4`
 const ImagemPag = styled.img`
     width: 20vw;
 `
+const TituloSeguranca = styled.div`
+
+`
+
+const InputContato = styled.input`
+width:250px;
+height: 30px;
+border-radius: 5px;
+`
+const BotaoEnviarContato = styled.button`
+width: 80px;
+height: 30px;
+border-radius: 5px;
+background-color: #ffa000;
+`
+
 const TextoPag = styled.p`
 `
 const RedesSociais = styled.section`
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
+    padding-left: 4vw;
 `
 const TelaToda = styled.div `
     margin:0;
@@ -97,13 +121,27 @@ class Rodape extends React.Component {
         <MuiThemeProvider theme={MyTheme}>
             <FundoRodape>
                 <Informacoes>
-                    <FormContato></FormContato>
+                    <FormContato>
+                        <h3>Entre em contato com a gente:</h3>
+                        <p>Nome:</p><InputContato type="text" name="nome" placeholder="Insira seu nome"></InputContato>
+                        <p>Email:</p><InputContato type="email" name="email" placeholder="Insira seu email"></InputContato>
+                        <p>Mensagem:</p><InputContato type="text" name="mensagem" placeholder="Insira seu sua mensagem"></InputContato> 
+                        <BotaoEnviarContato>Enviar</BotaoEnviarContato>                      
+                    </FormContato>
                     <FormasPag>
                         <ImagemPag src={Pagamentos} alt={'Forma de Pagamentos'} />
                     </FormasPag>
-                    <Certificados></Certificados>
+                    <Certificados>Bernardo e muito bonito</Certificados>
                 </Informacoes>
-                <RedesSociais></RedesSociais>
+                <RedesSociais>
+                    <img src={LogoTwitter} alt="Logo Twitter" />
+                    <img src={LogoFace} alt="Logo Facebook" />
+                    <img src={LogoInstagram} alt="Logo Instagram" />
+                </RedesSociais>
+                <TituloSeguranca>
+                    <img src={LogoSeg1} alt="Logo de Segurança 1" />
+                    <img src={LogoSeg2} alt="Logo de Segurança 2" />
+                </TituloSeguranca>
             </FundoRodape>
         </MuiThemeProvider>
     </TelaToda>

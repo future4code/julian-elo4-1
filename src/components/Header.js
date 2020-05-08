@@ -12,8 +12,9 @@ import IconCarrinho from '@material-ui/icons/ShoppingCart'
 import IconFavorito from '@material-ui/icons/Favorite'
 import IconPerfil from '@material-ui/icons/Person'
 import IconSair from '@material-ui/icons/ExitToApp'
+import Carrinho from './Carrinho.js'
 
-const TelaToda = styled.div `
+const TelaToda = styled.div`
     margin:0;
     padding:0;
 `
@@ -59,7 +60,7 @@ const Icones = styled.div`
     align-items: center;
     min-width: 25vw;
 `
-const ContainerIcone = styled.section `
+const ContainerIcone = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -92,112 +93,113 @@ const IconeSair = styled(IconSair)`
 `
 
 const styles = theme => ({
-    root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    margin: {
-      margin: theme.spacing.unit,
-    },
-    textField: {
-      flexBasis: 200,
-    },
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    formControl: {
-      margin: theme.spacing.unit,
-      minWidth: 120,
-    },
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  margin: {
+    margin: theme.spacing.unit,
+  },
+  textField: {
+    flexBasis: 200,
+  },
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 120,
+  },
 });
 
 const MyTheme = createMuiTheme({
-    palette:{
-        primary: {
-            main: '#ff8f00'
-        },
-        secondary: {
-            main: '#fff8e1'
-        }
+  palette: {
+    primary: {
+      main: '#ff8f00'
+    },
+    secondary: {
+      main: '#fff8e1'
     }
+  }
 })
 class Cabecalho extends React.Component {
-    state = {
-        amount: '',
-        procurar: '',
-        showProcurar: false,
-        open: false,
-        age: '',
-    };
+  state = {
+    amount: '',
+    procurar: '',
+    showProcurar: false,
+    open: false,
+    age: '',
+  };
 
   handleChangePesquisar = prop => event => {
     this.setState({ [prop]: event.target.value });
-  };  
+  };
 
-  clicouPesquisar =() =>{
+  clicouPesquisar = () => {
     console.log('Funcionou Pesquisa')
   }
 
-  pressionaEnter =(event) =>{
+  pressionaEnter = (event) => {
     event.keyCode === 13 ? console.log('funcionou certinho') : console.log('x')
   }
-  
-  clicouCarrinho = () => {
-    console.log('Funcionou Carrinho')
+
+  onClickCarrinho = () => {
+    console.log ('clicou')
+    return <Carrinho />
   }
-  
-  render(){
+
+  render() {
     const { classes } = this.props;
     return (
       <TelaToda>
-          <MuiThemeProvider theme={MyTheme}>
-              <FundoCabecalho>
-                <LogoElo src={Logo} alt='Logo'/>
-                
-                <ContainerPesquisa>
-                    <InputPesquisar
-                      onKeyDown={this.pressionaEnter}
-                      id="filled-adornment-procurar"
-                      className={classNames(classes.margin, classes.textField, classes.label)}
-                      variant="filled"
-                      type={this.state.showProcurar ? 'text' : 'procurar'}
-                      label="Procurar"
-                      value={this.state.procurar}
-                      onChange={this.handleChangePesquisar('procurar')}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <Procurar onClick={this.clicouPesquisar}/>
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                </ContainerPesquisa>
-                  
-                <Icones>
-                    <ContainerIcone onClick={this.clicouCarrinho}>
-                      <IconeCarrinho />
-                      <TituloItem>Carrinho</TituloItem>
-                    </ContainerIcone>
-                    <ContainerIcone>
-                      <IconeFavorito />
-                      <TituloItem>Favoritos</TituloItem>
-                    </ContainerIcone>
-                    <ContainerIcone>
-                      <IconePerfil />
-                      <TituloItem>Meu Perfil</TituloItem>
-                    </ContainerIcone>
-                    <ContainerIcone>
-                      <IconeSair />
-                      <TituloItem>Sair</TituloItem>
-                    </ContainerIcone>
-                </Icones>
-              </FundoCabecalho>
-          </MuiThemeProvider>
+        <MuiThemeProvider theme={MyTheme}>
+          <FundoCabecalho>
+            <LogoElo src={Logo} alt='Logo' />
+
+            <ContainerPesquisa>
+              <InputPesquisar
+                onKeyDown={this.pressionaEnter}
+                id="filled-adornment-procurar"
+                className={classNames(classes.margin, classes.textField, classes.label)}
+                variant="filled"
+                type={this.state.showProcurar ? 'text' : 'procurar'}
+                label="Procurar"
+                value={this.state.procurar}
+                onChange={this.handleChangePesquisar('procurar')}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <Procurar onClick={this.clicouPesquisar} />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </ContainerPesquisa>
+
+            <Icones>
+              <ContainerIcone onClick={this.onClickCarrinho}>
+                <IconeCarrinho />
+                <TituloItem>Carrinho</TituloItem>
+              </ContainerIcone>
+              <ContainerIcone>
+                <IconeFavorito />
+                <TituloItem>Favoritos</TituloItem>
+              </ContainerIcone>
+              <ContainerIcone>
+                <IconePerfil />
+                <TituloItem>Meu Perfil</TituloItem>
+              </ContainerIcone>
+              <ContainerIcone>
+                <IconeSair />
+                <TituloItem>Sair</TituloItem>
+              </ContainerIcone>
+            </Icones>
+          </FundoCabecalho>
+        </MuiThemeProvider>
       </TelaToda>
     );
-  }     
+  }
 }
 
 Cabecalho.propTypes = {
