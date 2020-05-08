@@ -74,7 +74,7 @@ const Header = styled.div`
 export class DetalheProduto extends Component {
     state = {
         produto: this.props.Produto,
-        paginaAtual: 'DETALHES'
+        paginaAtual: 'DETALHES',
     }
 
     onClickVoltar = () => {

@@ -10,6 +10,7 @@ import LogoFace from '../img/facebook.png'
 import LogoInstagram from '../img/instagram.png'
 import LogoSeg1 from '../img/seguranca1.png'
 import LogoSeg2 from '../img/seguranca2.png'
+import Button from '@material-ui/core/Button';
 
 const FundoRodape = styled.div`
     width: 100%;
@@ -34,14 +35,12 @@ const FormasPag = styled.section`
 
 `
 const Certificados = styled.section`
+padding-right: 4vw;
 `
 const TituloPag = styled.h4`
 `
 const ImagemPag = styled.img`
     width: 20vw;
-`
-const TituloSeguranca = styled.div`
-
 `
 
 const InputContato = styled.input`
@@ -65,7 +64,7 @@ const RedesSociais = styled.section`
     align-items: center;
     padding-left: 4vw;
 `
-const TelaToda = styled.div `
+const TelaToda = styled.div`
     margin:0;
     padding:0;
 `
@@ -89,64 +88,64 @@ const styles = theme => ({
         margin: theme.spacing.unit * 2,
         '&:hover': {
             color: red[800],
+        },
+        extendedIcon: {
+            marginRight: theme.spacing.unit,
+        },
     },
-    extendedIcon: {
-        marginRight: theme.spacing.unit,
-    },
-  },
 });
 
 const MyTheme = createMuiTheme({
-    palette:{
+    palette: {
         primary: {
             main: '#ffa000'
         },
         secondary: {
-            main:'#363636'
+            main: '#363636'
         }
     }
 })
 class Rodape extends React.Component {
-  
 
-  handleChange = prop => event => {
-    this.setState({ [prop]: event.target.value });
-  };
 
-  render(){
-  const { classes } = this.props;
-  
-  return (
-    <TelaToda>
-        <MuiThemeProvider theme={MyTheme}>
-            <FundoRodape>
-                <Informacoes>
-                    <FormContato>
-                        <h3>Entre em contato com a gente:</h3>
-                        <p>Nome:</p><InputContato type="text" name="nome" placeholder="Insira seu nome"></InputContato>
-                        <p>Email:</p><InputContato type="email" name="email" placeholder="Insira seu email"></InputContato>
-                        <p>Mensagem:</p><InputContato type="text" name="mensagem" placeholder="Insira seu sua mensagem"></InputContato> 
-                        <BotaoEnviarContato>Enviar</BotaoEnviarContato>                      
-                    </FormContato>
-                    <FormasPag>
-                        <ImagemPag src={Pagamentos} alt={'Forma de Pagamentos'} />
-                    </FormasPag>
-                    <Certificados>Bernardo e muito bonito</Certificados>
-                </Informacoes>
-                <RedesSociais>
-                    <img src={LogoTwitter} alt="Logo Twitter" />
-                    <img src={LogoFace} alt="Logo Facebook" />
-                    <img src={LogoInstagram} alt="Logo Instagram" />
-                </RedesSociais>
-                <TituloSeguranca>
-                    <img src={LogoSeg1} alt="Logo de Segurança 1" />
-                    <img src={LogoSeg2} alt="Logo de Segurança 2" />
-                </TituloSeguranca>
-            </FundoRodape>
-        </MuiThemeProvider>
-    </TelaToda>
-  );
-  }     
+    handleChange = prop => event => {
+        this.setState({ [prop]: event.target.value });
+    };
+
+    render() {
+        const { classes } = this.props;
+
+        return (
+            <TelaToda>
+                <MuiThemeProvider theme={MyTheme}>
+                    <FundoRodape>
+                        <Informacoes>
+                            <FormContato>
+                                <h3>Entre em contato com a gente:</h3>
+                                <p>Nome:</p><InputContato type="text" name="nome" placeholder="Insira seu nome"></InputContato>
+                                <p>Email:</p><InputContato type="email" name="email" placeholder="Insira seu email"></InputContato>
+                                <p>Mensagem:</p><InputContato type="text" name="mensagem" placeholder="Insira seu sua mensagem"></InputContato>
+                                
+                                <BotaoEnviarContato color="primary">Enviar</BotaoEnviarContato>
+                            </FormContato>
+                            <FormasPag>
+                                <ImagemPag src={Pagamentos} alt={'Forma de Pagamentos'} />
+                            </FormasPag>
+                            <Certificados>
+                                <img src={LogoSeg1} alt="Logo de Segurança 1" />
+                                <img src={LogoSeg2} alt="Logo de Segurança 2" />
+                            </Certificados>
+                        </Informacoes>
+                        <RedesSociais>
+                            <img src={LogoTwitter} alt="Logo Twitter" />
+                            <img src={LogoFace} alt="Logo Facebook" />
+                            <img src={LogoInstagram} alt="Logo Instagram" />
+                        </RedesSociais>
+                    </FundoRodape>
+                </MuiThemeProvider>
+            </TelaToda>
+        );
+    }
 }
 
 Rodape.propTypes = {

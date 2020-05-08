@@ -178,7 +178,7 @@ export class AdicionaProduto extends React.Component {
                                     multiline="100"
                                     />
                                   </ContainerTextArea>
-                                <Button color="primary">Primary</Button>
+                                <Button color="primary">Cadastrar Produto</Button>
                             </formularioInputs>
                 </ConteinerForm>
             </ConteudoPrincipal>
