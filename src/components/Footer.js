@@ -11,6 +11,7 @@ import LogoInstagram from '../img/instagram.png'
 import LogoSeg1 from '../img/seguranca1.png'
 import LogoSeg2 from '../img/seguranca2.png'
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 const FundoRodape = styled.div`
     width: 100%;
@@ -29,40 +30,76 @@ const Informacoes = styled.section`
     align-items: center;
 `
 const FormContato = styled.section`
-padding-left:4vw;
+margin-left:4vw;
 `
-const FormasPag = styled.section`
+const ImgCertificados = styled.img`
+    margin-right: 2vw;
+`
 
+const FormasPag = styled.section`
+    margin-right: 4vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 25vw;
 `
+const IconesRedesSociais = styled.img`
+    width: 3vw;
+    height: 100%;
+    margin-left:1vw;
+`
+
 const Certificados = styled.section`
-padding-right: 4vw;
+    margin-left:2vw;
+
+    /* display: flex;
+    justify-content: baseline;
+    align-items: center;
+    min-width: 25vw; */
 `
 const TituloPag = styled.h4`
 `
 const ImagemPag = styled.img`
     width: 20vw;
+    
+`
+const DivInput = styled.div`
+    width: 50vh;
+    
 `
 
-const InputContato = styled.input`
-width:250px;
-height: 30px;
-border-radius: 5px;
-`
-const BotaoEnviarContato = styled.button`
-width: 80px;
-height: 30px;
-border-radius: 5px;
-background-color: #ffa000;
-`
+const TextContato = styled(TextField)`
+   flex-basis: 100%;
+    &&{
+        background-color: rgba(255, 248, 225, 0.5);
+        border-radius: 10px 10px 0 0;
+    }
+    width:400px;
+  `
+
+// const InputContato = styled.input`
+// width:250px;
+// height: 30px;
+// border-radius: 5px;
+// `
+// const BotaoEnviarContato = styled.button`
+// width: 80px;
+// height: 30px;
+// border-radius: 5px;
+// background-color: #ffa000;
+// `
 
 const TextoPag = styled.p`
 `
 const RedesSociais = styled.section`
+    margin-right: 4vw;
     display: flex;
     width: 100%;
-    /* justify-content: space-between; */
-    align-items: center;
-    padding-left: 4vw;
+    justify-content: flex-end; 
+    /* align-items: center; */
+    padding-left: -4vw;
+
+
 `
 const TelaToda = styled.div`
     margin:0;
@@ -121,25 +158,40 @@ class Rodape extends React.Component {
                     <FundoRodape>
                         <Informacoes>
                             <FormContato>
-                                <h3>Entre em contato com a gente:</h3>
+                            <DivInput>   
+                              <TextContato required id="standard-required" label="Nome"defaultValue="" />
+                              <br/>
+                              <TextContato required id="standard-required" label="Email" defaultValue="" />
+                              <br/>
+                              <TextContato 
+                            label="Descrição"
+                                    id="filled-size-small"
+                                        size="normal"
+                                    rows="5"
+                                    multiline="100"
+                                    />
+                            </DivInput>
+
+
+                                {/* <h3>Entre em contato com a gente:</h3>
                                 <p>Nome:</p><InputContato type="text" name="nome" placeholder="Insira seu nome"></InputContato>
-                                <p>Email:</p><InputContato type="email" name="email" placeholder="Insira seu email"></InputContato>
-                                <p>Mensagem:</p><InputContato type="text" name="mensagem" placeholder="Insira seu sua mensagem"></InputContato>
+                                <p>Email:</p><InputContato type="email" name="email" placeholder="Insira seu email"></InputContato> */}
+                                {/* <p>Mensagem:</p><InputContato type="text" name="mensagem" placeholder="Insira seu sua mensagem"></InputContato> */}
                                 
-                                <BotaoEnviarContato color="primary">Enviar</BotaoEnviarContato>
+                                {/* <BotaoEnviarContato color="primary">Enviar</BotaoEnviarContato> */}
                             </FormContato>
                             <FormasPag>
                                 <ImagemPag src={Pagamentos} alt={'Forma de Pagamentos'} />
                             </FormasPag>
                             <Certificados>
-                                <img src={LogoSeg1} alt="Logo de Segurança 1" />
-                                <img src={LogoSeg2} alt="Logo de Segurança 2" />
+                                <ImgCertificados src={LogoSeg1} alt="Logo de Segurança 1" /> 
+                                <ImgCertificados src={LogoSeg2} alt="Logo de Segurança 2" />
                             </Certificados>
                         </Informacoes>
                         <RedesSociais>
-                            <img src={LogoTwitter} alt="Logo Twitter" />
-                            <img src={LogoFace} alt="Logo Facebook" />
-                            <img src={LogoInstagram} alt="Logo Instagram" />
+                          <IconesRedesSociais src={LogoTwitter} alt="Logo Twitter" />
+                          <IconesRedesSociais src={LogoFace} alt="Logo Facebook" />
+                          <IconesRedesSociais src={LogoInstagram} alt="Logo Instagram" />
                         </RedesSociais>
                     </FundoRodape>
                 </MuiThemeProvider>
