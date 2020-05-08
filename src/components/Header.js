@@ -2,10 +2,8 @@ import React from 'react'
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core'
 import styled from 'styled-components'
 import Logo from '../img/logocomfundo.png'
-
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import amber from '@material-ui/core/colors/amber';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -29,10 +27,11 @@ const FundoCabecalho = styled.div`
     align-items: center;
 `
 const LogoElo = styled.img`
-    width: 6vw;
-    transform: rotate(-90deg);
-    margin-left: 6vw; 
-    margin-right: 3vw;
+  width: 6vw;
+  transform: rotate(-90deg);
+  margin-left: 6vw; 
+  margin-right: 3vw;
+  cursor: pointer;
 `
 const ContainerPesquisa = styled.div`
     display:flex;
@@ -132,60 +131,73 @@ class Cabecalho extends React.Component {
         age: '',
     };
 
-    handleChangePesquisar = prop => event => {
-      this.setState({ [prop]: event.target.value });
-    };  
+  handleChangePesquisar = prop => event => {
+    this.setState({ [prop]: event.target.value });
+  };  
 
-    render(){
+  clicouPesquisar =() =>{
+    console.log('Funcionou Pesquisa')
+  }
+
+  pressionaEnter =(event) =>{
+    event.keyCode === 13 ? console.log('funcionou certinho') : console.log('x')
+  }
+  
+  clicouCarrinho = () => {
+    console.log('Funcionou Carrinho')
+  }
+  
+  render(){
     const { classes } = this.props;
-
-        return (
-          <TelaToda>
-              <MuiThemeProvider theme={MyTheme}>
-                  <FundoCabecalho>
-                    <LogoElo src={Logo} alt='Logo'/>
-                        <ContainerPesquisa>
-                            <InputPesquisar
-                              id="filled-adornment-procurar"
-                              className={classNames(classes.margin, classes.textField, classes.label)}
-                              variant="filled"
-                              type={this.state.showProcurar ? 'text' : 'procurar'}
-                              label="Procurar"
-                              value={this.state.procurar}
-                              onChange={this.handleChangePesquisar('procurar')}
-                              InputProps={{
-                                endAdornment: (
-                                  <InputAdornment position="end">
-                                    <Procurar />
-                                  </InputAdornment>
-                                ),
-                              }}
-                            />
-                        </ContainerPesquisa>
-                      
-                    <Icones>
-                        <ContainerIcone>
-                          <IconeCarrinho />
-                          <TituloItem>Carrinho</TituloItem>
-                        </ContainerIcone>
-                        <ContainerIcone>
-                          <IconeFavorito />
-                          <TituloItem>Favoritos</TituloItem>
-                        </ContainerIcone>
-                        <ContainerIcone>
-                          <IconePerfil />
-                          <TituloItem>Meu Perfil</TituloItem>
-                        </ContainerIcone>
-                        <ContainerIcone>
-                          <IconeSair />
-                          <TituloItem>Sair</TituloItem>
-                        </ContainerIcone>
-                    </Icones>
-                  </FundoCabecalho>
-              </MuiThemeProvider>
-          </TelaToda>
-        );
-    }     
+    return (
+      <TelaToda>
+          <MuiThemeProvider theme={MyTheme}>
+              <FundoCabecalho>
+                <LogoElo src={Logo} alt='Logo'/>
+                
+                <ContainerPesquisa>
+                    <InputPesquisar
+                      onKeyDown={this.pressionaEnter}
+                      id="filled-adornment-procurar"
+                      className={classNames(classes.margin, classes.textField, classes.label)}
+                      variant="filled"
+                      type={this.state.showProcurar ? 'text' : 'procurar'}
+                      label="Procurar"
+                      value={this.state.procurar}
+                      onChange={this.handleChangePesquisar('procurar')}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <Procurar onClick={this.clicouPesquisar}/>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                </ContainerPesquisa>
+                  
+                <Icones>
+                    <ContainerIcone onClick={this.clicouCarrinho}>
+                      <IconeCarrinho />
+                      <TituloItem>Carrinho</TituloItem>
+                    </ContainerIcone>
+                    <ContainerIcone>
+                      <IconeFavorito />
+                      <TituloItem>Favoritos</TituloItem>
+                    </ContainerIcone>
+                    <ContainerIcone>
+                      <IconePerfil />
+                      <TituloItem>Meu Perfil</TituloItem>
+                    </ContainerIcone>
+                    <ContainerIcone>
+                      <IconeSair />
+                      <TituloItem>Sair</TituloItem>
+                    </ContainerIcone>
+                </Icones>
+              </FundoCabecalho>
+          </MuiThemeProvider>
+      </TelaToda>
+    );
+  }     
 }
 
 Cabecalho.propTypes = {
