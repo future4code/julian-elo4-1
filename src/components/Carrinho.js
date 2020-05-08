@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Cabecalho from './HeaderCarrihno';
+import Cabecalho from './Header';
 import Button from '@material-ui/core/Button';
 import ShopIcon from '@material-ui/icons/AddShoppingCart';
 
@@ -10,10 +10,7 @@ const Pontas = styled.div`
     color: #fff8e1;
 `
 const BotaoAdicionar = styled.div`
-  display: grid;
-  grid-auto-flow: column;
-  align-items: center;
-  
+    
 `
 const BotaoFinalizar = styled.div`
     display:flex ;
