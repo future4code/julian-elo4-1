@@ -3,19 +3,34 @@ import HomeUsuario from './HomeUsuario'
 import styled from 'styled-components';
 import FundoAmarelo from '../img/fundoamarelo.jpg';
 import Elo4 from '../img/logo.png'
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core'
+import amber from '@material-ui/core/colors/amber';
 
+
+const TemaBoasVindas = createMuiTheme({
+  palette: {
+    primary:{
+      main: "#ffa000"
+    },
+    secondary: amber['A900']
+  }
+})
 
 const Fundo = styled.div`
 background-image: url(${FundoAmarelo});
 `;
 
-const Botaoescolha = styled.button`
+const Botaoescolha = styled(Button)`
   width: 300px;
-  height: 90px;
+  height: 110px;
   font-size: 30px;
-  border-radius: 10px;
+  border-radius: 30px;
   border-color: orangered;
   background: none;
+  color: black;
   `
 const Botoeshome = styled.div`
 display: flex;
@@ -67,13 +82,15 @@ height: 55vh;
 width: 100vw;
 `
 
-
-
 export class AppContainer extends Component {
 
+  
   render() {
     return (
+      <MuiThemeProvider theme={TemaBoasVindas}>    
+
       <Fundo>
+
         <Imagemelo4>
           <img src={Elo4} alt="simbolo elo4" />
           <Frasesheader>
@@ -84,11 +101,18 @@ export class AppContainer extends Component {
         <Frasesbody>
           <Bemvindo3>O QUER DESEJA FAZER HOJE?</Bemvindo3>
           <Botoeshome>
-            <Botaoescolha>Quero Comprar</Botaoescolha>
-            <Botaoescolha>Quero Vender</Botaoescolha>
+
+            <Botaoescolha variant="outlined" color="primary">Quero comprar</Botaoescolha>
+            <Botaoescolha variant="outlined" color="primary">Quero vender</Botaoescolha>
+
           </Botoeshome>
         </Frasesbody>
+
       </Fundo>
+
+      </MuiThemeProvider>
     )
   }
 }
+
+
