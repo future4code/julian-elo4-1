@@ -10,22 +10,87 @@ const Pontas = styled.div`
     color: #fff8e1;
 `
 const BotaoAdicionar = styled.div`
-    display: grid;
-    gap: 8px;
-    justify-content: center;
+    position: fixed;
+    right: 200px;
+    left: 50px;
+
     
 `
 const BotaoFinalizar = styled.div`
-    display: grid;
-    gap: 8px;
-    justify-content: flex-end;
+    position: absolute;
+    right: 30px;
+    bottom: 0;
+    padding-bottom: 35px;
+ 
+`
+const TituloDoProduto = styled.p`
+    margin: 0.5vw 0 0 0.5vw;
+    font-size:1vw;
+    color: #363636;
+    font-weight: bold;
+
+`
+const PrecoDoProduto = styled.p`
+    margin: 0.5vw 0 0 0.5vw;
+    font-size:1vw;
+    color: #363636;
+    font-weight: bold;
+`
+const FotoDoProduto = styled.img`
+height: 12vw;
+    width: 12vw;
+    -webkit-transition: all 0.5s ease; /* Safari e Chrome */
+    -moz-transition: all 0.5s ease; /* Firefox */
+    -ms-transition: all 0.5s ease; /* IE 9 */
+    -o-transition: all 0.5s ease; /* Opera */
+    transition: all 0.5s ease;
 `
 
+const container = styled.div`
+height: 50px;
+`
 
 
 export class Carrinho extends React.Component{
 
+      state = {
+        valorMaximo: '',
+        valorMinimo: '',
+        produtos: [
+                {
+                "description": "Luminária personalizada com foto, para eternizar aquele momento especial com uma peça surpreendente...",
+                "paymentMethod": "card",
+                "photos": [
+                    "https://img.elo7.com.br/product/main/2C0A7BB/luminaria-foto-iluminada.jpg"
+                ],
+                "name": "LUMINÁRIA - FOTO ILUMINADA",
+                "installments": 3,
+                "category": "Decoração",
+                "price": 120,
+                "id": "JmtX1h8Ry1qt2xLpz8SB"
+              },
+              
+          ],
+        }
+      
+
+
+
+
     render() {
+    
+     const produtosDoSite = this.state.produtos.map((produto) => {
+      return <div>
+        <div>
+        <FotoDoProduto src={produto.photos} alt="Foto do produto" />
+        </div>
+        <div className="Legenda-Produtos">
+     <TituloDoProduto>{produto.name}</TituloDoProduto>
+     <PrecoDoProduto>R${produto.price},00</PrecoDoProduto>
+      </div>     
+     </div>
+    })
+
     return (
     <div>     
       <Cabecalho />
@@ -46,14 +111,17 @@ export class Carrinho extends React.Component{
         Finalizar compra
   </Button>
       </BotaoFinalizar>
-        <Pontas><h1>Rodapé</h1></Pontas>
-      
-      
+      <div>{produtosDoSite}</div>
+<Pontas><h1>Rodapé</h1></Pontas>  
       </div>
-      
-      
-      
-    )
-  }
-}
+     
 
+    )};
+
+      
+    
+  
+  
+  }
+    
+  
