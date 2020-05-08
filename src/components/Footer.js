@@ -1,15 +1,14 @@
 import React from 'react'
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core'
 import styled from 'styled-components'
-import classNames from 'classnames';
-
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
+import Pagamentos from '../img/pag.png'
 
 const FundoRodape = styled.div`
     width: 100%;
-    height: 30vh;
+    height: 40vh;
     background-color: #ff8f00;
     color: #fff8e1;
     display: flex;
@@ -32,6 +31,7 @@ const Certificados = styled.section`
 const TituloPag = styled.h4`
 `
 const ImagemPag = styled.img`
+    width: 20vw;
 `
 const TextoPag = styled.p`
 `
@@ -99,9 +99,7 @@ class Rodape extends React.Component {
                 <Informacoes>
                     <FormContato></FormContato>
                     <FormasPag>
-                        <TituloPag>MEIOS DE PAGAMENTO</TituloPag>
-                        <FormasPag></FormasPag>
-                        <TextoPag>Parcelamos em até 12x no cartão de crédito</TextoPag>
+                        <ImagemPag src={Pagamentos} alt={'Forma de Pagamentos'} />
                     </FormasPag>
                     <Certificados></Certificados>
                 </Informacoes>
