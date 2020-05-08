@@ -9,5 +9,13 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  monospace;
 }
+body {
+  background-image: url("./img/fundoamarelo.jpg");
+  background-color: #cccccc;
+ }
+ body img{
+  width: 115px;  
+ } 
+ 
