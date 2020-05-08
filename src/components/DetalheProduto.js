@@ -13,6 +13,7 @@ import ButtonBack from '@material-ui/core/Button'
 import BackIcon from '@material-ui/icons/ChevronLeft'
 import HomeUsuario from './HomeUsuario.js'
 import Rodape from './Footer'
+import Carrinho from './Carrinho'
 
 const temaDetalheProduto = createMuiTheme({
     palette: {
@@ -82,6 +83,8 @@ export class DetalheProduto extends Component {
             paginaAtual: this.state.paginaAtual === 'DETALHES' ? 'PRODUTOS' : 'DETALHES'
         })
     }
+
+    onClick
 
     render() {
         console.log(this.state.produto)
