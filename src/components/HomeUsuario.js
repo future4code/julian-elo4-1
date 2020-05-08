@@ -282,8 +282,8 @@ class HomeUsuario extends React.Component {
         open: false,
         ordem: '',
         isZoom: false,
-        isFiltrado: true,
-        produtosFiltrados: [],
+       isFiltrado: true,
+       produtosFiltrados: [],
         produtos: [],
         categoria: 'all',
         ordem: 'nenhuma',
@@ -293,34 +293,34 @@ class HomeUsuario extends React.Component {
         this.getAllProducts()
     }
 
+//
+    //filtrarNumero = () => {
+    //    const filtragem = this.state.produtos.filter((produto) => {
+//
+    //        if ((this.state.inputValorMaximo && this.state.inputValorMinimo) &&
+    //            (produto.preço >= this.state.inputValorMinimo && produto.preço <= this.state.inputValorMaximo)) {
+    //            return produto
+//
+    //        } if ((this.state.inputValorMaximo && this.state.inputValorMinimo === 0) &&
+    //            (produto.preço <= this.state.inputValorMaximo)) {
+    //            return produto
+//
+    //        } if ((this.state.inputValorMinimo && this.state.inputValorMaximo === 0) &&
+    //            (this.state.inputValorMinimo >= produto.preço)) {
+    //            return produto
+    //        }
+//
+    //        else if (this.state.inputValorMinimo === 0 && this.state.inputValorMaximo === 0) {
+    //        }
+    //    });
+    //    this.setState({
+    //        isfiltrado: true,
+    //        produtosFiltrados: filtragem,
+    //    })
+    //}
 
-    filtrarNumero = () => {
-        const filtragem = this.state.produtos.filter((produto) => {
 
-            if ((this.state.inputValorMaximo && this.state.inputValorMinimo) &&
-                (produto.preço >= this.state.inputValorMinimo && produto.preço <= this.state.inputValorMaximo)) {
-                return produto
-
-            } if ((this.state.inputValorMaximo && this.state.inputValorMinimo === 0) &&
-                (produto.preço <= this.state.inputValorMaximo)) {
-                return produto
-
-            } if ((this.state.inputValorMinimo && this.state.inputValorMaximo === 0) &&
-                (this.state.inputValorMinimo >= produto.preço)) {
-                return produto
-            }
-
-            else if (this.state.inputValorMinimo === 0 && this.state.inputValorMaximo === 0) {
-            }
-        });
-        this.setState({
-            isfiltrado: true,
-            produtosFiltrados: filtragem,
-        })
-    }
-
-
-    filtrarNumero = () => {
+    defineListaProdutos = () => {
         const listaMaioresQueMinimo = this.state.produtos.filter(produto => {
             if (this.state.valorMinimo === "") {
                 return true;
@@ -368,7 +368,7 @@ class HomeUsuario extends React.Component {
         this.setState({ isZoom: !this.state.isZoom })
     }
 
-    handleClose = () => {
+    handleCloseOk = () => {
         this.setState({ open: false });
     };
 
@@ -582,10 +582,10 @@ if (this.state.paginaAtual === 'PRODUTOS') {
                                         </Form>
                                     </DialogContent>
                                     <DialogActions>
-                                        <Button onClick={this.handleClose} color="primary">
+                                        <Button onClick={this.handleCloseCancel} color="primary">
                                             Cancel
                                                 </Button>
-                                        <Button onClick={this.handleClose} color="primary">
+                                        <Button onClick={this.handleCloseOk} color="primary">
                                             Ok
                                                 </Button>
                                     </DialogActions>
