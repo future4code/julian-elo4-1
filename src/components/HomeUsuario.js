@@ -282,6 +282,8 @@ class HomeUsuario extends React.Component {
         open: false,
         ordem: '',
         isZoom: false,
+        isFiltrado: true,
+        produtosFiltrados: [],
         produtos: [],
         categoria: 'all',
         ordem: 'nenhuma',
@@ -291,31 +293,54 @@ class HomeUsuario extends React.Component {
         this.getAllProducts()
     }
 
-    defineListaProdutos = () => {
+
+    filtrarNumero = () => {
+        const filtragem = this.state.produtos.filter((produto) => {
+
+            if ((this.state.inputValorMaximo && this.state.inputValorMinimo) &&
+                (produto.preço >= this.state.inputValorMinimo && produto.preço <= this.state.inputValorMaximo)) {
+                return produto
+
+            } if ((this.state.inputValorMaximo && this.state.inputValorMinimo === 0) &&
+                (produto.preço <= this.state.inputValorMaximo)) {
+                return produto
+
+            } if ((this.state.inputValorMinimo && this.state.inputValorMaximo === 0) &&
+                (this.state.inputValorMinimo >= produto.preço)) {
+                return produto
+            }
+
+            else if (this.state.inputValorMinimo === 0 && this.state.inputValorMaximo === 0) {
+            }
+        });
+        this.setState({
+            isfiltrado: true,
+            produtosFiltrados: filtragem,
+        })
+    }
+
+
+    filtrarNumero = () => {
         const listaMaioresQueMinimo = this.state.produtos.filter(produto => {
             if (this.state.valorMinimo === "") {
                 return true;
             } else {
                 return produto.price >= this.state.valorInputMinimo;
             }
-        });
-
+        }); 
         const listaMenoresQueMaximo = this.state.produtos.filter(produto => {
             if (this.state.valorMaximo === "") {
                 return true;
             } else {
                 return produto.price <= this.state.valorInputMaximo;
             }
-        });
-
+        }); 
         const listaBusca = this.state.produtos.filter(produto => {
             return produto.name.toLowerCase().indexOf(this.state.valorBuscar.toLowerCase()) !== -1;
-        })
-
+        })  
         const produtosSite = listaBusca.filter(produto => {
             return (listaMaioresQueMinimo.indexOf(produto) !== -1) && (listaMenoresQueMaximo.indexOf(produto) !== -1);
-        });
-
+        }); 
         return produtosSite;
     }
 
