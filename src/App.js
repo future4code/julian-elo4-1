@@ -6,6 +6,7 @@
 //
 
 import React from 'react'
+import './App.css';
 import JssProvider from 'react-jss/lib/JssProvider'
 import { create } from 'jss'
 import { MuiThemeProvider, createGenerateClassName, jssPreset } from '@material-ui/core/styles'
