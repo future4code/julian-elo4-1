@@ -6,22 +6,19 @@ import ShopIcon from '@material-ui/icons/AddShoppingCart';
 
 const Pontas = styled.div`
     height: 20vh;
-    background-color: #ff6f00;
+    background-color: #ff8f00;
     color: #fff8e1;
 `
 const BotaoAdicionar = styled.div`
-    position: fixed;
-    right: 200px;
-    left: 50px;
-
-    
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  
 `
 const BotaoFinalizar = styled.div`
-    position: absolute;
-    right: 30px;
-    bottom: 0;
-    padding-bottom: 35px;
- 
+    display:flex ;
+    justify-content:center;
+    
 `
 const TituloDoProduto = styled.p`
     margin: 0.5vw 0 0 0.5vw;
@@ -46,10 +43,15 @@ height: 12vw;
     transition: all 0.5s ease;
 `
 
-const container = styled.div`
-height: 50px;
-`
 
+const Container = styled.div `
+    padding-top: 30px;
+    height: 100vh;
+    width: 100vw;
+    color: #ff6f00;
+    background-color: #fff8e1;
+     
+`
 
 export class Carrinho extends React.Component{
 
@@ -69,6 +71,30 @@ export class Carrinho extends React.Component{
                 "price": 120,
                 "id": "JmtX1h8Ry1qt2xLpz8SB"
               },
+              {
+                "name": "Máscara Anatômica ",
+                "installments": 3,
+                "category": "Artesanato",
+                "price": 10,
+                "description": "Tecido tricoline forrado. Com a estampa que você desejar",
+                "paymentMethod": "card",
+                "photos": [
+                    "https://img.elo7.com.br/product/main/2EAB3F2/mascara-anatomico.jpg"
+                ],
+                "id": "4jRKNvfg9paoRQw3qPk2"
+            },
+            {
+                "installments": 3,
+                "category": "Eco",
+                "price": 25,
+                "description": "Kit com 30 suculentas para casamento, aniversario, eventos em geral. Cachepot personalizável (copinhos de papel) - O cliente pode mudar a cor do papel e arte.",
+                "paymentMethod": "card",
+                "photos": [
+                    "https://img.elo7.com.br/product/main/1AB84BF/plantinhas-suculentas-para-casamentos-sao-paulo-cactos.jpg"
+                ],
+                "name": "Plantinhas Suculentas para Casamentos",
+                "id": "4z0TjSD2ElU4wqdYe96S"
+            }
               
           ],
         }
@@ -92,35 +118,40 @@ export class Carrinho extends React.Component{
     })
 
     return (
-    <div>     
-      <Cabecalho />
-      <BotaoAdicionar>
-    
-  <Button 
-      variant="fab" 
-      color="primary" 
-      size="medium" >
-    <ShopIcon />
-  </Button>
-      </BotaoAdicionar> 
-      <BotaoFinalizar> 
-  <Button 
-        variant="contained"
-        color="primary"
-        size="small" >
-        Finalizar compra
-  </Button>
-      </BotaoFinalizar>
-      <div>{produtosDoSite}</div>
-<Pontas><h1>Rodapé</h1></Pontas>  
-      </div>
-     
-
-    )};
-
+    <div>
       
-    
-  
+        <Cabecalho />
+        <Container>
+
+            <h2>Bem vindo ao seu carrinho de compras!</h2>  
+
+            <BotaoAdicionar>
+                <Button 
+                    variant="fab" 
+                    color="primary" 
+                    size="medium" >
+                <ShopIcon />
+                </Button>
+             </BotaoAdicionar> 
+
+            <BotaoFinalizar> 
+                <Button 
+                    variant="contained"
+                    color="primary"
+                    size="small" >
+                    Finalizar compra
+                </Button>
+            </BotaoFinalizar>
+
+            <div>{produtosDoSite}</div>
+        
+        </Container>
+        
+        <div>
+            <Pontas></Pontas>
+        </div>
+    </div>
+    )};  
   
   }
     
