@@ -92,39 +92,46 @@ const ConteinerForm = styled.div`
     min-height: 85vh;
     display:flex;
     flex-direction:column;
-    justify-content: space-around;
-    align-items: center;
-    width:60vw;
+    justify-content: center;
+    align-items: left;
+    width:40vw;
 `
 const ContainerInputName = styled.div`
-    width: 30vw;
+    width: 40vw;
     display: flex;
 `
-
 const InputName = styled(TextField)`
-    flex-basis: 100%
+    flex-basis: 100%;
 `
-
+const InputsLadoALado = styled.section `
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+`
 const ContainerInputCategoria = styled.div`
+    width: 14vw;
+    display: flex;
 `
 const InputCategoria = styled(TextField)`
-`
-
-const ContainerInputPagamento = styled.div`
-`
-const InputPagamento = styled(TextField)`
+    flex-basis: 100%;
 `
 const ContainerInputParcelas = styled.div`
-`
-const InputParcelas = styled(TextField)`
+    display: flex;
+    width: 13vw;
 `
 const ContainerInputPreco = styled.div`
+    display: flex;
+    width: 12vw;
 `
 const InputPreco = styled(TextField)`
+    flex-basis: 100%;
 `
-const ContainerTextArea = styled.div `
+const ContainerInputLinhas = styled.div `
+    display: flex;
+    w
 `
-const InputTextArea = styled(TextField)`
+const InputLinhas = styled(TextField)`
+    flex-basis: 100%;
 `
 const MyTheme = createMuiTheme({
     palette: {
@@ -257,27 +264,31 @@ class AdicionaProduto extends React.Component {
             description: this.state.valueDescription,
             price: this.state.valuePrice,
             paymentMethod: this.state.valuePaymentMethod,
-            category: this.state.value.valueCategory,
-            photos: this.state.value.valuePhotos,
+            category: this.state.valueCategory,
+            photos: this.state.valuePhotos,
             installments: this.state.valueInstallments
         }
 
-        axios.post("https://us-central1-labenu-apis.cloudfunctions.net/eloFourOne/products", dataToSend,
-            {
-                headers: {
-                    ContentType: 'application/json'
-                }
-            })
-            .then(resposta => {
-                console.log("UHUL DEU CERTO!!!!!", resposta)
-            })
-            .catch(error => {
-                console.log("DEU ERRO", error)
-            });
+        console.log('clicou')
+
+        //axios.post("https://us-central1-labenu-apis.cloudfunctions.net/eloFourOne/products", dataToSend,
+        //    {
+        //        headers: {
+        //            ContentType: 'application/json'
+        //        }
+        //    })
+        //    .then(resposta => {
+        //        console.log("UHUL DEU CERTO!!!!!", resposta)
+        //    })
+        //    .catch(error => {
+        //        console.log("DEU ERRO", error)
+        //    });
     };
     
     render() {
         const { classes } = this.props;
+        console.log(this.state.valueDescription)
+        console.log(this.state.valuePrice)
         
         return (
                 <TelaToda>
@@ -304,7 +315,109 @@ class AdicionaProduto extends React.Component {
                                       onChange={this.mudaNome()}
                                     />
                                 </ContainerInputName>    
-                            </ConteinerForm>
+                            
+                                <InputsLadoALado>
+                                    <ContainerInputCategoria>
+                                        <InputCategoria
+                                            id="standard-select-currency"
+                                            select
+                                            label="Categoria do Produto"
+                                            className={classes.textField}
+                                            value={this.state.valueCategory}
+                                            onChange={this.mudaCategoria()}
+                                            SelectProps={{
+                                              MenuProps: {
+                                                className: classes.menu,
+                                              },
+                                            }}
+                                            margin="normal"
+                                        >
+                                            {categorias.map(option => (
+                                              <MenuItem key={option.value} value={option.value}>
+                                                {option.label}
+                                              </MenuItem>
+                                            ))}
+                                        </InputCategoria>
+                                    </ContainerInputCategoria>
+    
+                                    <ContainerInputParcelas>
+                                        <InputCategoria
+                                            id="standard-select-parcelas"
+                                            select
+                                            label="Número de Parcelas"
+                                            className={classes.textField}
+                                            value={this.state.valueInstallments}
+                                            onChange={this.mudaParcelas()}
+                                            SelectProps={{
+                                              MenuProps: {
+                                                className: classes.menu,
+                                              },
+                                            }}
+                                            margin="normal"
+                                        >
+                                            {numParcelas.map(option => (
+                                              <MenuItem key={option.value} value={option.value}>
+                                                {option.label}
+                                              </MenuItem>
+                                            ))}
+                                        </InputCategoria>
+                                    </ContainerInputParcelas>
+                                </InputsLadoALado>
+
+                                <InputsLadoALado>
+                                    <ContainerInputPreco>
+                                        <InputPreco
+                                            label="Preço (Sem vírgula)"
+                                            id="simple-start-adornment"
+                                            className={classNames(classes.margin, classes.textField)}
+                                            InputProps={{
+                                              startAdornment: <InputAdornment position="start">R$</InputAdornment>,
+                                              endAdornment: <InputAdornment position="end">,00</InputAdornment>
+                                            }}
+                                            onChange={this.mudaValor()}
+                                        />
+                                    </ContainerInputPreco>
+                                    <FormControl component="fieldset" className={classes.formControl}>
+                                        <FormLabel component="legend">Forma de Pagamento</FormLabel>
+                                        <RadioGroup
+                                            aria-label="Forma de Pagamento"
+                                            name="gender1"
+                                            className={classes.group}
+                                            value={this.state.valuePaymentMethod}
+                                            onChange={this.mudaPagamento()}
+                                        >
+                                            <FormControlLabel value="boleto" control={<Radio />} label="Boleto" />
+                                            <FormControlLabel value="card" control={<Radio />} label="Cartão" />
+                                        </RadioGroup>
+                                    </FormControl>
+                                </InputsLadoALado>
+
+                                <ContainerInputLinhas>
+                                    <InputLinhas
+                                        id="standard-multiline-flexible"
+                                        label="Insira o endereço web das imagens"
+                                        multiline
+                                        rowsMax="8"
+                                        value={this.state.valuePhotos}
+                                        onChange={this.mudaFotos()}
+                                        className={classes.textField}
+                                        margin="normal"
+                                    />
+                                </ContainerInputLinhas>                              
+
+                                <ContainerInputLinhas>
+                                    <InputLinhas
+                                        id="standard-multiline-flexible"
+                                        label="Insira o endereço web das imagens"
+                                        multiline
+                                        rowsMax="8"
+                                        value={this.state.valuePhotos}
+                                        onChange={this.mudaFotos()}
+                                        className={classes.textField}
+                                        margin="normal"
+                                    />
+                                </ContainerInputLinhas> 
+                        </ConteinerForm>
                         </ConteudoPrincipal>
 
                         <Rodape />
