@@ -17,6 +17,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import classNames from 'classnames';
+import EnviarIcon from '@material-ui/icons/Send';
 
 const styles = theme => ({
     root: {
@@ -45,18 +46,23 @@ const styles = theme => ({
   },
 });
 
+const TituloForm = styled.h1`
+    color: #363636;
+    margin: 5vw 0;
+`
 const TelaToda = styled.div`
     width: 100vw;
-    min-height: 100vh;
     background-color: #fff8e1;
     color: #363636;
+    min-height: 150vh;
 `
 const ConteudoPrincipal = styled.div`
     width: 100vw;
     display: flex;
+    min-height: 170vh;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 `
 const PerfilVendedor = styled.section`
     width: 100vw;
@@ -89,10 +95,10 @@ const TextProfileP = styled.p `
     color: #363636;
 `
 const ConteinerForm = styled.div` 
-    min-height: 85vh;
+    min-height: 100vh;
     display:flex;
     flex-direction:column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: left;
     width:40vw;
 `
@@ -107,6 +113,7 @@ const InputsLadoALado = styled.section `
     display: flex;
     justify-content: space-around;
     align-items: center;
+    margin: 1vw 0;
 `
 const ContainerInputCategoria = styled.div`
     width: 14vw;
@@ -128,7 +135,16 @@ const InputPreco = styled(TextField)`
 `
 const ContainerInputLinhas = styled.div `
     display: flex;
-    w
+    width: 40vw;
+    height: 10vw;
+`
+const ContainerBotao = styled.section`
+    display: flex;
+    width: 15vw;
+    margin: 5vw;
+`
+const BotaoEnviar = styled(Button)`
+    flex-basis: 100%;
 `
 const InputLinhas = styled(TextField)`
     flex-basis: 100%;
@@ -258,7 +274,7 @@ class AdicionaProduto extends React.Component {
         this.setState({ valueInstallments: event.target.value });
     };
 
-    sendData = () => {
+    enviarProduto = () => {
         const dataToSend = {
             name: this.state.valueName,
             description: this.state.valueDescription,
@@ -292,9 +308,8 @@ class AdicionaProduto extends React.Component {
         
         return (
                 <TelaToda>
-                    <MuiThemeProvider theme={MyTheme}>
-                        <Cabecalho />
-                        
+                    < Cabecalho />
+                    <MuiThemeProvider theme={MyTheme}>           
                         <ConteudoPrincipal>
                             <PerfilVendedor>
                                 <ImageProfile src={'https://i1.wp.com/arteref.com/wp-content/uploads/2019/04/dara-1.jpg?fit=900%2C700&ssl=1'} alt="FotoVendedor" />
@@ -304,7 +319,9 @@ class AdicionaProduto extends React.Component {
                                     <TextProfileP> Sua reputação atual é ⭐9, 8 </TextProfileP> 
                                 </TextProfile>
                             </PerfilVendedor>
-
+                            
+                            <TituloForm>Coloque as características do seu Produto</TituloForm>
+                            
                             <ConteinerForm>
                                 <ContainerInputName>
                                     <InputName
@@ -408,7 +425,7 @@ class AdicionaProduto extends React.Component {
                                 <ContainerInputLinhas>
                                     <InputLinhas
                                         id="standard-multiline-flexible"
-                                        label="Insira o endereço web das imagens"
+                                        label="Insira a descrição do anúncios"
                                         multiline
                                         rowsMax="8"
                                         value={this.state.valuePhotos}
@@ -417,12 +434,16 @@ class AdicionaProduto extends React.Component {
                                         margin="normal"
                                     />
                                 </ContainerInputLinhas> 
+                            <ContainerBotao>
+                                <BotaoEnviar onClick={this.enviarProduto} variant="contained" color="primary" className={classes.button}>
+                                  Enviar Produto
+                                  <EnviarIcon className={classes.rightIcon}>Enviar</EnviarIcon>
+                                </BotaoEnviar>
+                            </ContainerBotao>
                         </ConteinerForm>
                         </ConteudoPrincipal>
-
-                        <Rodape />
-                                
                     </MuiThemeProvider>
+                    <Rodape />                       
                 </TelaToda>
         );
     }
