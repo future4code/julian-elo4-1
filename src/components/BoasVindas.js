@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import HomeUsuario from './HomeUsuario'
+import Carrinho from './Carrinho'
 import styled from 'styled-components';
 import FundoAmarelo from '../img/fundoamarelo.jpg';
 import Elo4 from '../img/logo.png'
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core'
 import amber from '@material-ui/core/colors/amber';
@@ -24,7 +23,6 @@ const Fundo = styled.div`
   background-image: url("${FundoAmarelo}");
   background-color: #cccccc;
   height: 100vh;
-
   img {
     width: 7vw;
   }
@@ -99,10 +97,12 @@ export class AppContainer extends Component {
   mostraUsuario = () => {
     this.setState({ paginaMostrada: 'usuario'})
   }
-   mostraVendedor = () => {
-     this.setState({ paginaMostrada: 'vendedor'})
+  mostraVendedor = () => {
+    this.setState({ paginaMostrada: 'vendedor'})
+  }
+  mostraCarrinho = () => {
+     this.setState({ paginaMostrada: 'carrinho'})
    }
-  
    render() {
     
     if(this.state.paginaMostrada === 'boasVindas'){
@@ -127,7 +127,7 @@ export class AppContainer extends Component {
 
                 <Botaoescolha onClick={this.mostraUsuario} variant="outlined" color="primary">Quero comprar</Botaoescolha>
                 <Botaoescolha onClick={this.mostraVendedor} variant="outlined" color="primary">Quero vender</Botaoescolha>
-
+                <Botaoescolha onClick={this.mostraCarrinho} variant="outlined" color="primary">Carrinho</Botaoescolha>
               </Botoeshome>
             </Frasesbody>
 
@@ -139,7 +139,11 @@ export class AppContainer extends Component {
       return(
         <HomeUsuario />
       )
-    }else{
+    } else if (this.state.paginaMostrada === 'carrinho'){
+      return(
+        <Carrinho />
+      )
+    } else{
       return(
         <Vendedor />
       )
@@ -150,4 +154,3 @@ export class AppContainer extends Component {
   }
 
 }
-

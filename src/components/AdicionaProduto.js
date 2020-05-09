@@ -16,6 +16,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import classNames from 'classnames';
 
 const styles = theme => ({
     root: {
@@ -44,88 +45,86 @@ const styles = theme => ({
   },
 });
 
+const TelaToda = styled.div`
+    width: 100vw;
+    min-height: 100vh;
+    background-color: #fff8e1;
+    color: #363636;
+`
 const ConteudoPrincipal = styled.div`
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    min-height: 90vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 `
-const CabecalhoPerfil = styled.div`
-    width:100vw;
-    background-color:orange;
-    height:15vh;
-    display:flex;
-    align-items:center;
-`
-const CardProfile = styled.div`
-    display:flex;
-    align-items:center;
-    padding:10px 0 10px 15vw;
-`
-const CardImageProfile = styled.div`     
+const PerfilVendedor = styled.section`
+    width: 100vw;
+    height: 10vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffe082;
 `
 const ImageProfile = styled.img`
     border-radius:50%;
+    width: 8vw;
 `
-const TextProfile = styled.div`
+const TextProfile = styled.div `
     display:flex;
     flex-direction: column;    
-    margin-left: 10px;
+    margin-left: 5vw;
 `
-const TextProfileh2 = styled.h2`
+const TextProfileh2 = styled.h2 `
     margin: 0;
     padding: 0;
     color: white;
+    font-weight: bold;
+    color: #363636;
 `
-const TextProfileP = styled.p`
+const TextProfileP = styled.p `
     color: wheat;
     margin: 0;
     padding: 0;
+    color: #363636;
 `
-/* Estilo Formulario */
-const ConteinerForm = styled.div`
-    height: 85vh;
+const ConteinerForm = styled.div` 
+    min-height: 85vh;
     display:flex;
     flex-direction:column;
-    justify-content:center;
+    justify-content: space-around;
     align-items: center;
-    width:600px;
-    
+    width:60vw;
 `
 const ContainerInputName = styled.div`
-    width: 400px;
+    width: 30vw;
+    display: flex;
 `
 
 const InputName = styled(TextField)`
-    width: 400px;
+    flex-basis: 100%
 `
 
 const ContainerInputCategoria = styled.div`
-    width: 400px;
-
 `
 const InputCategoria = styled(TextField)`
-    width: 400px;
 `
 
 const ContainerInputPagamento = styled.div`
-    width: 400px;
-
 `
 const InputPagamento = styled(TextField)`
-    width: 400px;
 `
 const ContainerInputParcelas = styled.div`
-    width: 400px;
 `
 const InputParcelas = styled(TextField)`
-    width: 400px;
 `
 const ContainerInputPreco = styled.div`
-    width: 400px;
 `
 const InputPreco = styled(TextField)`
-    width: 400px;
+`
+const ContainerTextArea = styled.div `
+`
+const InputTextArea = styled(TextField)`
 `
 const MyTheme = createMuiTheme({
     palette: {
@@ -134,7 +133,8 @@ const MyTheme = createMuiTheme({
         },
         secondary: amber['A900']
     }
-})
+});
+
 const categorias = [
     {
         value: 'acessorios',
@@ -212,16 +212,6 @@ const numParcelas = [
         label: '12x',
     },
 ];
-
-const ContainerTextArea = styled.div`
-    width: 400px;
-
-`
-const InputTextArea = styled(TextField)`
-    width: 400px;
-
-`
-
 class AdicionaProduto extends React.Component {
     state = {
         valueName: '',
@@ -229,12 +219,36 @@ class AdicionaProduto extends React.Component {
         valuePrice: '',
         valuePaymentMethod: '',
         valueCategory: '',
-        valuePhotos: '', 
+        valuePhotos: '',
         valueInstallments: '',
     };
 
-    handleChange = (name) => event => {
-        this.setState({ [name]: event.target.value });
+    mudaNome = () => event => {
+        this.setState({ valueName: event.target.value });
+    };
+
+    mudaDescricao = () => event => {
+        this.setState({ valueDescription: event.target.value });
+    };
+
+    mudaValor = () => event => {
+        this.setState({ valuePrice: event.target.value });
+    };
+    
+    mudaPagamento = () => event => {
+        this.setState({ valuePaymentMethod: event.target.value });
+    };
+    
+    mudaCategoria = () => event => {
+        this.setState({ valueCategory: event.target.value });
+    };
+    
+    mudaFotos = () => event => {
+        this.setState({ valuePhotos: event.target.value });
+    };
+    
+    mudaParcelas = () => event => {
+        this.setState({ valueInstallments: event.target.value });
     };
 
     sendData = () => {
@@ -261,130 +275,42 @@ class AdicionaProduto extends React.Component {
                 console.log("DEU ERRO", error)
             });
     };
-
-
+    
     render() {
         const { classes } = this.props;
+        
         return (
-                <MuiThemeProvider theme={MyTheme}>
-                    <Cabecalho />
-                        <CardProfile>
-                            <CardImageProfile>
-                                <ImageProfile src="https://picsum.photos/70/70" alt="Minha Figura"/>	
-                            </CardImageProfile>
-                            <TextProfile>
-                                <TextProfileh2>Vendedor SlackBot</TextProfileh2>
-                                <TextProfileP>10 produtos cadastrados.</TextProfileP>
-                            </TextProfile>
-                        </CardProfile>
-                    <ConteinerForm>
+                <TelaToda>
+                    <MuiThemeProvider theme={MyTheme}>
+                        <Cabecalho />
+                        
+                        <ConteudoPrincipal>
+                            <PerfilVendedor>
+                                <ImageProfile src={'https://i1.wp.com/arteref.com/wp-content/uploads/2019/04/dara-1.jpg?fit=900%2C700&ssl=1'} alt="FotoVendedor" />
+                                <TextProfile>
+                                    <TextProfileh2>Vendedor SlackBot</TextProfileh2>
+                                    <TextProfileP>Você possui 10 produtos cadastrados</TextProfileP>
+                                    <TextProfileP> Sua reputação atual é ⭐9, 8 </TextProfileP> 
+                                </TextProfile>
+                            </PerfilVendedor>
+
+                            <ConteinerForm>
+                                <ContainerInputName>
+                                    <InputName
+                                      id="standard-dense"
+                                      label="Título do Produto"
+                                      className={classNames(classes.textField, classes.dense)}
+                                      margin="dense"
+                                      onChange={this.mudaNome()}
+                                    />
+                                </ContainerInputName>    
+                            </ConteinerForm>
+                        </ConteudoPrincipal>
+
+                        <Rodape />
                                 
-                        <ContainerInputName>
-                            <InputName 
-                                value={this.state.valueName} 
-                                Onchange={this.handleChange('valueName')} 
-                                required id="standard-required" 
-                                label="Nome do Produto" 
-                                defaultValue="" />
-                        </ContainerInputName>
-    
-                        <ContainerInputCategoria>
-                            <InputCategoria
-                                id="standard-select-currency"
-                                select
-                                label="Categoria do Produto"
-                                className={classes.textField}
-                                value={this.state.valueCategory}
-                                onChange={this.handleChange('valueCategory')}
-                                SelectProps={{
-                                  MenuProps: {
-                                    className: classes.menu,
-                                  },
-                                }}
-                                margin="normal"
-                            >
-                                {categorias.map(option => (
-                                  <MenuItem key={option.value} value={option.value}>
-                                    {option.label}
-                                  </MenuItem>
-                                ))}
-                            </InputCategoria>
-                        </ContainerInputCategoria>
-    
-                        <ContainerInputPagamento>
-                            <FormControl component="fieldset" className={classes.formControl}>
-                                <FormLabel component="legend">Forma de Pagamento</FormLabel>
-                                <RadioGroup
-                                    aria-label="Forma de Pagamento"
-                                    name="gender1"
-                                    className={classes.group}
-                                    value={this.state.valuePaymentMethod}
-                                    onChange={this.handleChange('valuePaymentMethod')}
-                                >
-                                    <FormControlLabel value="boleto" control={<Radio />} label="Boleto" />
-                                    <FormControlLabel value="card" control={<Radio />} label="Cartão" />
-                                </RadioGroup>
-                            </FormControl>
-                        </ContainerInputPagamento>
-    
-                        <ContainerInputParcelas>
-                            <InputCategoria
-                                id="standard-select-parcelas"
-                                select
-                                label="Número de Parcelas"
-                                className={classes.textField}
-                                value={this.state.valueInstallments}
-                                onChange={this.handleChange('valueInstallments')}
-                                SelectProps={{
-                                  MenuProps: {
-                                    className: classes.menu,
-                                  },
-                                }}
-                                margin="normal"
-                            >
-                                {numParcelas.map(option => (
-                                  <MenuItem key={option.value} value={option.value}>
-                                    {option.label}
-                                  </MenuItem>
-                                ))}
-                            </InputCategoria>
-                        </ContainerInputParcelas>
-    
-                        <ContainerInputPreco>
-                            <TextField
-                                id="standard-number"
-                                label="Number"
-                                value={this.state.valuePrice}
-                                type="number"
-                                className={classes.textField}
-                                Onchange={this.handleChange('valuePrice')}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                margin="normal"
-                                InputProps={{
-                                    startAdornment: <InputAdornment position="start">R$</InputAdornment>,
-                                }}
-                            />
-                        </ContainerInputPreco>
-    
-                        <ContainerTextArea>
-                            <InputTextArea
-                                label="Descrição"
-                                id="filled-size-small"
-                                size="normal"
-                                rows="5"
-                                multiline="100"
-                                Onchange={this.handleChange('valueDescription')}
-                                value={this.state.valueDescription}
-                            />
-                        </ContainerTextArea>
-    
-                        <Button OnClick={this.sendData} color="primary">Cadastrar Produto</Button>
-    
-                    </ConteinerForm>
-                    <Rodape />
-                </MuiThemeProvider>
+                    </MuiThemeProvider>
+                </TelaToda>
         );
     }
 }
