@@ -1,9 +1,5 @@
 import React from 'react'
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core'
 import styled from 'styled-components'
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import red from '@material-ui/core/colors/red';
 import Pagamentos from '../img/pag.png'
 import LogoTwitter from '../img/twitter.png'
 import LogoFace from '../img/facebook.png'
@@ -105,56 +101,12 @@ const TelaToda = styled.div`
     margin:0;
     padding:0;
 `
-const styles = theme => ({
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        alignItems: 'centers',
-    },
-    margin: {
-        margin: theme.spacing.unit,
-    },
-    textField: {
-        flexBasis: 200,
-    },
-    icon: {
-        margin: theme.spacing.unit * 2,
-    },
-    iconHover: {
-        margin: theme.spacing.unit * 2,
-        '&:hover': {
-            color: red[800],
-        },
-        extendedIcon: {
-            marginRight: theme.spacing.unit,
-        },
-    },
-});
 
-const MyTheme = createMuiTheme({
-    palette: {
-        primary: {
-            main: '#ffa000'
-        },
-        secondary: {
-            main: '#363636'
-        }
-    }
-})
 class Rodape extends React.Component {
 
-
-    handleChange = prop => event => {
-        this.setState({ [prop]: event.target.value });
-    };
-
     render() {
-        const { classes } = this.props;
-
-        return (
+        return(
             <TelaToda>
-                <MuiThemeProvider theme={MyTheme}>
                     <FundoRodape>
                         <Informacoes>
                             <FormContato>
@@ -194,14 +146,8 @@ class Rodape extends React.Component {
                           <IconesRedesSociais src={LogoInstagram} alt="Logo Instagram" />
                         </RedesSociais>
                     </FundoRodape>
-                </MuiThemeProvider>
             </TelaToda>
         );
     }
 }
-
-Rodape.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Rodape);
+export default Rodape

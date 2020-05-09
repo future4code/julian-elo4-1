@@ -12,7 +12,7 @@ import IconCarrinho from '@material-ui/icons/ShoppingCart'
 import IconFavorito from '@material-ui/icons/Favorite'
 import IconPerfil from '@material-ui/icons/Person'
 import IconSair from '@material-ui/icons/ExitToApp'
-import Carrinho from './Carrinho.js'
+import HomeUsuario from './HomeUsuario.js'
 
 const TelaToda = styled.div`
     margin:0;
@@ -130,6 +130,7 @@ class Cabecalho extends React.Component {
     showProcurar: false,
     open: false,
     age: '',
+
   };
 
   handleChangePesquisar = prop => event => {
@@ -137,16 +138,11 @@ class Cabecalho extends React.Component {
   };
 
   clicouPesquisar = () => {
-    console.log('Funcionou Pesquisa')
+    return <HomeUsuario Pesquisar={this.state.procurar}/>
   }
 
   pressionaEnter = (event) => {
     event.keyCode === 13 ? console.log('funcionou certinho') : console.log('x')
-  }
-
-  onClickCarrinho = () => {
-    console.log ('clicou')
-    return <Carrinho />
   }
 
   render() {
@@ -178,8 +174,8 @@ class Cabecalho extends React.Component {
             </ContainerPesquisa>
 
             <Icones>
-              <ContainerIcone onClick={this.onClickCarrinho}>
-                <IconeCarrinho />
+              <ContainerIcone>
+                <IconeCarrinho onClick={this.props.ClicaCarrinho}/>
                 <TituloItem>Carrinho</TituloItem>
               </ContainerIcone>
               <ContainerIcone>
