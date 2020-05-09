@@ -84,10 +84,14 @@ export class DetalheProduto extends Component {
         })
     }
 
-    onClick
+    onClickCarrinho = () => {
+        console.log('chamou')
+        this.setState({
+            paginaAtual: this.state.paginaAtual === 'DETALHES' ? 'CARRINHO' : 'DETALHES'
+        })
+    }
 
     render() {
-        console.log(this.state.produto)
         let images = []
         let formatoImagens = {
             original: '',
@@ -112,8 +116,8 @@ export class DetalheProduto extends Component {
             return (
                 <MuiThemeProvider theme={temaDetalheProduto}>
                     <Container>
-                        <Header>
-                            <Cabecalho />
+                        <Header> 
+                            <Cabecalho ClicaCarrinho={this.onClickCarrinho}/>
                         </Header>
                         <Galeria>
                             <ImageGallery items={images} autoPlay={false} />
@@ -166,6 +170,8 @@ export class DetalheProduto extends Component {
                     <Rodape />
                 </MuiThemeProvider>
             )
+        } else if (this.state.paginaAtual === 'CARRINHO') {
+            return <Carrinho />
         } else {
             return <HomeUsuario />
         }

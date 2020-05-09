@@ -26,6 +26,7 @@ import ZoomMais from '@material-ui/icons/ZoomIn';
 import ZoomMenos from '@material-ui/icons/ZoomOut';
 import Promocional from '../img/promo.png'
 import { DetalheProduto } from './DetalheProduto.js'
+import Carrinho from './Carrinho.js'
 
 const TelaToda = styled.div`
     margin:0;
@@ -282,18 +283,39 @@ class HomeUsuario extends React.Component {
         open: false,
         ordem: '',
         isZoom: false,
-       isFiltrado: true,
-       produtosFiltrados: [],
+        isFiltrado: true,
+        produtosFiltrados: [],
         produtos: [],
-        categoria: 'all',
-        ordem: 'nenhuma',
+        categoria: 'all'
     };
 
     componentDidMount() {
         this.getAllProducts()
     }
 
-//
+    getAllProducts = () => {
+        axios.get('https://us-central1-labenu-apis.cloudfunctions.net/eloFourOne/products')
+            .then(response => {
+                this.setState({ produtos: response.data.products })
+            }).catch(error => {
+                window.alert('Erro!', error)
+            })
+    }
+
+    onClickCarrinho = () => {
+        this.setState({
+            paginaAtual: this.state.paginaAtual === 'PRODUTOS' ? 'CARRINHO' : 'PRODUTOS'
+        })
+    }
+
+    onClickPesquisa = () => {
+        const pesquisa = this.state.produtos.filter((produto) => {
+            return produto.name.toLowerCase().indexOf(this.state.valorBuscar.toLowerCase()) !== -1;
+        })
+
+        return pesquisa
+    }
+
     //filtrarNumero = () => {
     //    const filtragem = this.state.produtos.filter((produto) => {
 //
@@ -328,6 +350,7 @@ class HomeUsuario extends React.Component {
                 return produto.price >= this.state.valorInputMinimo;
             }
         }); 
+
         const listaMenoresQueMaximo = this.state.produtos.filter(produto => {
             if (this.state.valorMaximo === "") {
                 return true;
@@ -335,12 +358,15 @@ class HomeUsuario extends React.Component {
                 return produto.price <= this.state.valorInputMaximo;
             }
         }); 
+
         const listaBusca = this.state.produtos.filter(produto => {
             return produto.name.toLowerCase().indexOf(this.state.valorBuscar.toLowerCase()) !== -1;
         })  
+
         const produtosSite = listaBusca.filter(produto => {
             return (listaMaioresQueMinimo.indexOf(produto) !== -1) && (listaMenoresQueMaximo.indexOf(produto) !== -1);
         }); 
+
         return produtosSite;
     }
 
@@ -355,7 +381,7 @@ class HomeUsuario extends React.Component {
     handleClickOpen = () => {
         this.setState({ open: true });
     };
-
+    
     aumentaImagem = () => {
         this.setState({ isZoom: !this.state.isZoom })
     }
@@ -372,15 +398,9 @@ class HomeUsuario extends React.Component {
         this.setState({ open: false });
     };
 
-    getAllProducts = () => {
-        axios.get('https://us-central1-labenu-apis.cloudfunctions.net/eloFourOne/products')
-            .then(response => {
-                console.log(response)
-                this.setState({ produtos: response.data.products })
-            }).catch(error => {
-                window.alert('Erro!')
-            })
-    }
+    handleCloseCancel = () => {
+        this.setState({ open: false });
+    };
 
     onClickMaisDetalhes = (idProduto) => {
         const produtoEspecifico = this.state.produtos.filter((item) => {
@@ -500,8 +520,11 @@ switch (this.state.isZoom) {
 if (this.state.paginaAtual === 'PRODUTOS') {
     return (
         <TelaToda>
-            <MuiThemeProvider theme={MyTheme}>
-                <Cabecalho />
+            <MuiThemeProvider>
+                <Cabecalho 
+                    ClicaCarrinho={this.onClickCarrinho}
+                    ClicaPesquisa={this.onClickPesquisa}
+                />
                 <Container>
                     <Navegaçao>
                         <TituloNavegacao>Categorias</TituloNavegacao>
@@ -603,8 +626,10 @@ if (this.state.paginaAtual === 'PRODUTOS') {
             </MuiThemeProvider>
         </TelaToda>
     )
-} else {
+} else if (this.state.paginaAtual === 'DETALHES') {
     return <DetalheProduto Produto={this.state.detalheProduto} />
+} else {
+    return <Carrinho />
 }
     }
 }
