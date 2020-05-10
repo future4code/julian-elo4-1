@@ -275,7 +275,8 @@ class AdicionaProduto extends React.Component {
     };
 
     enviarProduto = () => {
-        const dataToSend = {
+        
+        const body = {
             name: this.state.valueName,
             description: this.state.valueDescription,
             price: this.state.valuePrice,
@@ -285,26 +286,33 @@ class AdicionaProduto extends React.Component {
             installments: this.state.valueInstallments
         }
 
-        console.log('clicou')
-
-        //axios.post("https://us-central1-labenu-apis.cloudfunctions.net/eloFourOne/products", dataToSend,
-        //    {
-        //        headers: {
-        //            ContentType: 'application/json'
-        //        }
-        //    })
-        //    .then(resposta => {
-        //        console.log("UHUL DEU CERTO!!!!!", resposta)
-        //    })
-        //    .catch(error => {
-        //        console.log("DEU ERRO", error)
-        //    });
+        axios.post("https://us-central1-labenu-apis.cloudfunctions.net/eloFourOne/products", body,
+            {
+                headers: {
+                    ContentType: 'application/json'
+                }
+            })
+            .then(resposta => {
+                console.log("UHUL DEU CERTO!!!!!", resposta)
+            })
+            .catch(error => {
+                console.log("DEU ERRO", error)
+            }
+        );
+        
+        this.setState({
+            valueName: '',
+            valueDescription: '',
+            valuePrice: '',
+            valuePaymentMethod: '',
+            valueCategory: '',
+            valuePhotos: '',
+            valueInstallments: '',
+        })
     };
     
     render() {
         const { classes } = this.props;
-        console.log(this.state.valueDescription)
-        console.log(this.state.valuePrice)
         
         return (
                 <TelaToda>
@@ -316,7 +324,7 @@ class AdicionaProduto extends React.Component {
                                 <TextProfile>
                                     <TextProfileh2>Vendedor SlackBot</TextProfileh2>
                                     <TextProfileP>Você possui 10 produtos cadastrados</TextProfileP>
-                                    <TextProfileP> Sua reputação atual é ⭐9, 8 </TextProfileP> 
+                                    <TextProfileP> Sua reputação atual é ⭐9,8 </TextProfileP> 
                                 </TextProfile>
                             </PerfilVendedor>
                             
@@ -428,16 +436,16 @@ class AdicionaProduto extends React.Component {
                                         label="Insira a descrição do anúncios"
                                         multiline
                                         rowsMax="8"
-                                        value={this.state.valuePhotos}
-                                        onChange={this.mudaFotos()}
+                                        value={this.state.valueDescription}
+                                        onChange={this.mudaDescricao()}
                                         className={classes.textField}
                                         margin="normal"
                                     />
                                 </ContainerInputLinhas> 
                             <ContainerBotao>
                                 <BotaoEnviar onClick={this.enviarProduto} variant="contained" color="primary" className={classes.button}>
-                                  Enviar Produto
-                                  <EnviarIcon className={classes.rightIcon}>Enviar</EnviarIcon>
+                                  Enviar Produto &nbsp;&nbsp;
+                                  <EnviarIcon className={classes.rightIcon}>Enviar &nbsp; </EnviarIcon>
                                 </BotaoEnviar>
                             </ContainerBotao>
                         </ConteinerForm>
