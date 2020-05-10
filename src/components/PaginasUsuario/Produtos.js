@@ -1,8 +1,6 @@
 import React from 'react'
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core'
 import styled from 'styled-components'
-import Rodape from './Footer'
-import Cabecalho from './Header'
 import classNames from 'classnames';
 import amber from '@material-ui/core/colors/amber';
 import PropTypes from 'prop-types';
@@ -24,7 +22,7 @@ import Select from '@material-ui/core/Select';
 import FilledInput from '@material-ui/core/FilledInput';
 import ZoomMais from '@material-ui/icons/ZoomIn';
 import ZoomMenos from '@material-ui/icons/ZoomOut';
-import Promocional from '../img/promo.png'
+import Promocional from '../../img/promo.png'
 import { DetalheProduto } from './DetalheProduto.js'
 import Carrinho from './Carrinho.js'
 
@@ -61,7 +59,7 @@ const MenosZoom = styled(ZoomMenos)`
 `
 
 const ContainerZoom = styled.section`
-    display: flex;
+    displayswi: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
@@ -281,7 +279,6 @@ class HomeUsuario extends React.Component {
         valorBuscar: 'produto',
         ordem: 'nenhuma',
         open: false,
-        ordem: '',
         isZoom: false,
         isFiltrado: true,
         produtosFiltrados: [],
@@ -408,7 +405,7 @@ class HomeUsuario extends React.Component {
         })
 
         this.setState({
-            paginaAtual: this.state.paginaAtual === 'PRODUTOS' ? 'DETALHES' : 'PRODUTOS',
+            paginaAtual: this.state.paginaAtual === 'HomeUsuario' ? 'detalhes' : 'HomeUsuario',
             detalheProduto: produtoEspecifico
         })
     }
@@ -521,10 +518,6 @@ if (this.state.paginaAtual === 'PRODUTOS') {
     return (
         <TelaToda>
             <MuiThemeProvider>
-                <Cabecalho 
-                    ClicaCarrinho={this.onClickCarrinho}
-                    ClicaPesquisa={this.onClickPesquisa}
-                />
                 <Container>
                     <Navegaçao>
                         <TituloNavegacao>Categorias</TituloNavegacao>
@@ -622,11 +615,11 @@ if (this.state.paginaAtual === 'PRODUTOS') {
                         </Mostruario>
                     </ConteudoPrincipal>
                 </Container>
-                <Rodape />
+
             </MuiThemeProvider>
         </TelaToda>
     )
-} else if (this.state.paginaAtual === 'DETALHES') {
+} else if (this.state.paginaAtual === 'detalhes') {
     return <DetalheProduto Produto={this.state.detalheProduto} />
 } else {
     return <Carrinho />

@@ -1,24 +1,14 @@
 import React from 'react'
 import styled from 'styled-components';
-import Cabecalho from './Header';
 import Button from '@material-ui/core/Button';
 import ShopIcon from '@material-ui/icons/AddShoppingCart';
-import Footer from './Footer'
 
 const TituloCarrinho = styled.h2`
 padding-left: 30vw;
 font-size: 40px;
 `
-
-const Pontas = styled.div`
-    height: 20vh;
-    background-color: #ff8f00;
-    color: #fff8e1;
-`
 const BotaoAdicionar = styled(Button)`
 margin-top: 40vh;
-
-
 `
 const BotaoFinalizar = styled(Button)`
     margin-top: 40vh;
@@ -27,36 +17,24 @@ const BotaoFinalizar = styled(Button)`
 const ProdutosDaLoja = styled.div`
     padding-left: 7vw;
     margin-top:5vh;;
-
-  
 `
 const LegendaDosProdutos = styled.div`
-
 `
-
-
 const ImagemDoProduto = styled.div`
 float: left;
 display:flex;
 justify-content:center;
 flex-direction: column;
 `
-
 const DivDosProdutos = styled.div`
-
 `
-
 const RodapeSite = styled.div`
-
 `
-
 const TituloDoProduto = styled.p`
-
     margin: 0.5vw 0 0 0.5vw;
     font-size:1vw;
     color: #363636;
     font-weight: bold;
-
 `
 const PrecoDoProduto = styled.p`
     margin: 0.5vw 0 0 0.5vw;
@@ -73,8 +51,6 @@ const FotoDoProduto = styled.img`
     -o-transition: all 0.5s ease; /* Opera */
     transition: all 0.5s ease;
 `
-
-
 const Container = styled.div`
     padding-top: 30px;
     padding-bottom: 30px;
@@ -83,11 +59,8 @@ const Container = styled.div`
     color: #ff6f00;
     background-color: #fff8e1;
     padding-top:5vh;
-     
 `
-
 class Carrinho extends React.Component {
-
     state = {
         valorMaximo: '',
         valorMinimo: '',
@@ -155,7 +128,6 @@ class Carrinho extends React.Component {
         return (
             <div>
 
-                <Cabecalho />
                 <Container>
 
                     <TituloCarrinho>Bem vindo ao seu carrinho de compras!</TituloCarrinho>
@@ -183,8 +155,7 @@ class Carrinho extends React.Component {
                     </BotaoFinalizar>                    
 
                 </Container>
-  
-                    <Footer />                  
+                 
                 
             </div>
         )

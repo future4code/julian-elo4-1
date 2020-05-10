@@ -5,14 +5,12 @@ import ButtonFav from '@material-ui/core/Button'
 import FavIcon from '@material-ui/icons/Favorite'
 import styled from 'styled-components'
 import ImageGallery from 'react-image-gallery';
-import '../App.css'
+import '../../App.css'
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core'
 import amber from '@material-ui/core/colors/amber';
-import Cabecalho from './Header'
 import ButtonBack from '@material-ui/core/Button'
 import BackIcon from '@material-ui/icons/ChevronLeft'
-import HomeUsuario from './HomeUsuario.js'
-import Rodape from './Footer'
+import HomeUsuario from './Produtos.js'
 import Carrinho from './Carrinho'
 
 const temaDetalheProduto = createMuiTheme({
@@ -68,10 +66,6 @@ const StyledButtonFav = styled(ButtonFav)`
     width: 10vw;
     height: 7vh;
 `
-const Header = styled.div`
-    width: 100vw;
-`
-
 export class DetalheProduto extends Component {
     state = {
         produto: this.props.Produto,
@@ -116,9 +110,6 @@ export class DetalheProduto extends Component {
             return (
                 <MuiThemeProvider theme={temaDetalheProduto}>
                     <Container>
-                        <Header> 
-                            <Cabecalho ClicaCarrinho={this.onClickCarrinho}/>
-                        </Header>
                         <Galeria>
                             <ImageGallery items={images} autoPlay={false} />
                         </Galeria>
@@ -167,7 +158,6 @@ export class DetalheProduto extends Component {
                             )
                         })}
                     </Container>
-                    <Rodape />
                 </MuiThemeProvider>
             )
         } else if (this.state.paginaAtual === 'CARRINHO') {

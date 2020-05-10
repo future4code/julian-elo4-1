@@ -4,8 +4,6 @@ import amber from '@material-ui/core/colors/amber';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import styled from "styled-components"
-import Cabecalho from './Header'
-import Rodape from './Footer'
 import axios from 'axios'
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { withStyles } from '@material-ui/core/styles';
@@ -235,7 +233,7 @@ const numParcelas = [
         label: '12x',
     },
 ];
-class AdicionaProduto extends React.Component {
+class Vendedor extends React.Component {
     state = {
         valueName: '',
         valueDescription: '',
@@ -316,7 +314,6 @@ class AdicionaProduto extends React.Component {
         
         return (
                 <TelaToda>
-                    < Cabecalho />
                     <MuiThemeProvider theme={MyTheme}>           
                         <ConteudoPrincipal>
                             <PerfilVendedor>
@@ -450,15 +447,14 @@ class AdicionaProduto extends React.Component {
                             </ContainerBotao>
                         </ConteinerForm>
                         </ConteudoPrincipal>
-                    </MuiThemeProvider>
-                    <Rodape />                       
+                    </MuiThemeProvider>                      
                 </TelaToda>
         );
     }
 }
 
-AdicionaProduto.propTypes = {
+Vendedor.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AdicionaProduto);
+export default withStyles(styles)(Vendedor);
