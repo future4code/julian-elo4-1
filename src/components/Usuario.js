@@ -251,6 +251,8 @@ class Usuario extends React.Component {
     const { classes } = this.props;
     let paginaMostrada;
 
+
+
     switch (this.state.paginaMostrada) {
       case 'carrinho':
         paginaMostrada = <Carrinho />;
