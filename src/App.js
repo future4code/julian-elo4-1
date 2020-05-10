@@ -12,7 +12,7 @@ import { create } from 'jss'
 import { MuiThemeProvider, createGenerateClassName, jssPreset } from '@material-ui/core/styles'
 import { createMuiTheme } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { AppContainer } from './components/BoasVindas'
+import { BoasVindas } from './components/BoasVindas'
 // import amber from '@material-ui/core/colors/amber';
 
 const MyTheme = createMuiTheme({
@@ -39,7 +39,7 @@ function App() {
 		<JssProvider jss={jss} generateClassName={generateClassName}>
 			<MuiThemeProvider theme={MyTheme}>
 				<CssBaseline />
-				<AppContainer />
+				<BoasVindas />
 			</MuiThemeProvider>
 		</JssProvider>
 	)

@@ -21,16 +21,16 @@ import LogoSeg2 from "../img/seguranca2.png";
 import Button from "@material-ui/core/Button";
 import Produtos from './PaginasUsuario/Produtos'
 import Carrinho from './PaginasUsuario/Carrinho'
-import { DetalheProduto } from './PaginasUsuario/DetalheProduto'
-
+import Vendedor from './Vendedor.js'
+import { BoasVindas } from './BoasVindas.js'
 
 const Desenvolvedores = styled.div`
 `
 const Fontes = styled.p`
-font-size: 20px;
+font-size: 1.5em;
 font-family: 'Tekton pro';
 `
-const FundoRodape = styled.div`
+const Rodape = styled.div`
   width: 100%;
   height: 40vh;
   background-color: #ff8f00;
@@ -51,7 +51,6 @@ const FormContato = styled.section`
   margin-left: 4vw;
 `;
 const ImgCertificados = styled.img`
-  margin-right: 2vw;
   
 `
 const FormasPag = styled.section`
@@ -74,26 +73,28 @@ const Certificados = styled.section`
 const TituloPag = styled.h4`
 `
 const ImagemPag = styled.img`
-  width: 20vw;
+  width: 22vw;
+  padding-left:5vw;
 `
 const DivInput = styled.div`
-  width: 50vh;
+    padding-top: 5vh;
+    padding-bottom: vh;
 `
 const TextContato = styled(TextField)`
-  flex-basis: 100%;
   && {
     background-color: rgba(255, 248, 225, 0.5);
     border-radius: 10px 10px 0 0;
   }
-  width: 400px;
+  width: 16vw;
 `
 const BotaoEnviarContato = styled(Button)`
-  width: 100px;
-  height: 50px;
+  width: 1.9;vw
+  height: 1vh;
   font-size: 1em;
   border-radius: 30px;
   color: white;
 `
+
 const TextoPag = styled.p`
 `
 const RedesSociais = styled.section`
@@ -222,7 +223,7 @@ class Usuario extends React.Component {
     showProcurar: false,
     open: false,
     age: '',
-    paginaMostrada: 'produtos'
+    paginaMostrada: this.props.MudaEstadoPagina
   };
 
   handleChangePesquisar = prop => event => {
@@ -234,7 +235,7 @@ class Usuario extends React.Component {
   }
 
   voltarHome = () => {
-    this.setState({paginaMostrada: 'produtos'})
+    this.setState({paginaMostrada: 'home'})
   }
 
   pressionaEnter = (event) => {
@@ -255,8 +256,8 @@ class Usuario extends React.Component {
         paginaMostrada = <Carrinho />;
         break;
       
-      case 'detalhes':
-        paginaMostrada = <DetalheProduto />
+      case 'vendedor':
+        paginaMostrada = <Vendedor />
         break;
       
       default:
@@ -264,114 +265,121 @@ class Usuario extends React.Component {
         break;
     }
 
-    return (
-      <TelaToda>
-        <MuiThemeProvider theme={MyTheme}>
-          <FundoCabecalho>
-            <LogoElo Onclick={this.voltarHome} src={Logo} alt='Logo' />
-
-            <ContainerPesquisa>
-              <InputPesquisar
-                onKeyDown={this.pressionaEnter}
-                id="filled-adornment-procurar"
-                className={classNames(classes.margin, classes.textField, classes.label)}
-                variant="filled"
-                type={this.state.showProcurar ? 'text' : 'procurar'}
-                label="Procurar"
-                value={this.state.procurar}
-                onChange={this.handleChangePesquisar('procurar')}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <Procurar onClick={this.clicouPesquisar} />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </ContainerPesquisa>
-
-            <Icones>
-              <ContainerIcone>
-                <IconeCarrinho onClick={this.mostraCarrinho}/>
-                <TituloItem>Carrinho</TituloItem>
-              </ContainerIcone>
-              <ContainerIcone>
-                <IconeFavorito />
-                <TituloItem>Favoritos</TituloItem>
-              </ContainerIcone>
-              <ContainerIcone>
-                <IconePerfil />
-                <TituloItem>Meu Perfil</TituloItem>
-              </ContainerIcone>
-              <ContainerIcone>
-                <IconeSair />
-                <TituloItem>Sair</TituloItem>
-              </ContainerIcone>
-            </Icones>
-          </FundoCabecalho>
-
-          <ConteudoSite>
-            {paginaMostrada}
-          </ConteudoSite>
-
-          <FundoRodape>
-          <Informacoes>
-            <FormContato>
-              <DivInput>
-                <TextContato
-                  required
-                  id="standard-required"
-                  label="Nome"
-                  defaultValue=""
+    if (this.state.paginaMostrada === 'home') {
+      return <BoasVindas />
+    } else {
+      return (
+        <TelaToda>
+          <MuiThemeProvider theme={MyTheme}>
+            <FundoCabecalho>
+              <LogoElo onClick={this.voltarHome} src={Logo} alt='Logo' />
+  
+              <ContainerPesquisa>
+                <InputPesquisar
+                  onKeyDown={this.pressionaEnter}
+                  id="filled-adornment-procurar"
+                  className={classNames(classes.margin, classes.textField, classes.label)}
+                  variant="filled"
+                  type={this.state.showProcurar ? 'text' : 'procurar'}
+                  label="Procurar"
+                  value={this.state.procurar}
+                  onChange={this.handleChangePesquisar('procurar')}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Procurar onClick={this.clicouPesquisar} />
+                      </InputAdornment>
+                    ),
+                  }}
                 />
-                <br />
-                <TextContato
-                  required
-                  id="standard-required"
-                  label="Email"
-                  defaultValue=""
-                />
-                <br />
-                <TextContato
-                  label="Descrição"
-                  id="filled-size-small"
-                  size="normal"
-                  rows="5"
-                  multiline="100"
-                />
-              </DivInput>
-              <BotaoEnviarContato variant="outlined" color="secondary">
-                Enviar
-              </BotaoEnviarContato>
-            </FormContato>
-            <FormasPag>
-              <ImagemPag src={Pagamentos} alt={"Forma de Pagamentos"} />
-            </FormasPag>
-            <Certificados>
-                 <ImgCertificados src={LogoSeg1} alt="Logo de Segurança 1" />
-                 <ImgCertificados src={LogoSeg2} alt="Logo de Segurança 2" />
-                <br/>
-                <br/>
-                 <IconesRedesSociais src={LogoTwitter} alt="Logo Twitter" />
-                 <IconesRedesSociais src={LogoFace} alt="Logo Facebook" />
-                 <IconesRedesSociais src={LogoInstagram} alt="Logo Instagram" />
-            </Certificados>
-            <Desenvolvedores>
-               <h2>Desenvolvedores</h2> 
-               <br/>
-              <Fontes>Wendel De Lima</Fontes>
-              <Fontes>Gislaine Costa</Fontes>
-              <Fontes>Raphael de Melo</Fontes>
-              <Fontes>Bernardo Arduini</Fontes>
-              <Fontes>Alex Trindade</Fontes>           
-              
-            </Desenvolvedores>
-          </Informacoes>
-          
-        </FundoRodape>
-        </MuiThemeProvider>
-      </TelaToda>
-    );
+              </ContainerPesquisa>
+  
+              <Icones>
+                <ContainerIcone>
+                  <IconeCarrinho onClick={this.mostraCarrinho}/>
+                  <TituloItem>Carrinho</TituloItem>
+                </ContainerIcone>
+                <ContainerIcone>
+                  <IconeFavorito />
+                  <TituloItem>Favoritos</TituloItem>
+                </ContainerIcone>
+                <ContainerIcone>
+                  <IconePerfil />
+                  <TituloItem>Meu Perfil</TituloItem>
+                </ContainerIcone>
+                <ContainerIcone>
+                  <IconeSair />
+                  <TituloItem>Sair</TituloItem>
+                </ContainerIcone>
+              </Icones>
+            </FundoCabecalho>
+  
+            <ConteudoSite>
+              {paginaMostrada}
+            </ConteudoSite>
+  
+            <Rodape>
+              <Informacoes>
+                <FormContato>
+                  <DivInput>
+                    <TextContato
+                      required
+                      id="standard-required"
+                      label="Nome"
+                      defaultValue=""
+                    />
+                    <br />
+                    <TextContato
+                      required
+                      id="standard-required"
+                      label="Email"
+                      defaultValue=""
+                    />
+                    <br />
+                    <TextContato
+                      label="Descrição"
+                      id="filled-size-small"
+                      size="normal"
+                      rows="5"
+                      multiline="100"
+                      />
+                      <BotaoEnviarContato variant="outlined" color="secondary">
+                      Enviar
+                    </BotaoEnviarContato>
+                    
+
+                  </DivInput>
+                  
+                </FormContato>
+                <FormasPag>
+                  <ImagemPag src={Pagamentos} alt={"Forma de Pagamentos"} />
+                </FormasPag>
+                <Certificados>
+                     <ImgCertificados src={LogoSeg1} alt="Logo de Segurança 1" />
+                     <ImgCertificados src={LogoSeg2} alt="Logo de Segurança 2" />
+                    <br/>
+                    <br/>
+                     <IconesRedesSociais src={LogoTwitter} alt="Logo Twitter" />
+                     <IconesRedesSociais src={LogoFace} alt="Logo Facebook" />
+                     <IconesRedesSociais src={LogoInstagram} alt="Logo Instagram" />
+                </Certificados>
+                <Desenvolvedores>
+                   <h2>Desenvolvedores</h2> 
+                   <br/>
+                  <Fontes>Wendel De Lima</Fontes>
+                  <Fontes>Gislaine Costa</Fontes>
+                  <Fontes>Raphael de Melo</Fontes>
+                  <Fontes>Bernardo Arduini</Fontes>
+                  <Fontes>Alex Trindade</Fontes>           
+                  
+                </Desenvolvedores>
+              </Informacoes>
+                  
+          </Rodape>
+          </MuiThemeProvider>
+        </TelaToda>
+      );
+    }
   }
 }
 
@@ -380,3 +388,4 @@ Usuario.propTypes = {
 };
 
 export default withStyles(styles)(Usuario);
+

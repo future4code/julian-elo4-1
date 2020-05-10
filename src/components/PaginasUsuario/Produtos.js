@@ -1,30 +1,22 @@
 import React from 'react'
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core'
 import styled from 'styled-components'
-import classNames from 'classnames';
 import amber from '@material-ui/core/colors/amber';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import IconFilter from '@material-ui/icons/Tune';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import red from '@material-ui/core/colors/red';
 import Button from '@material-ui/core/Button'
 import MaisIcon from '@material-ui/icons/Add'
 import axios from 'axios'
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import FilledInput from '@material-ui/core/FilledInput';
+import MenuItem from '@material-ui/core/MenuItem';
 import ZoomMais from '@material-ui/icons/ZoomIn';
 import ZoomMenos from '@material-ui/icons/ZoomOut';
 import Promocional from '../../img/promo.png'
 import { DetalheProduto } from './DetalheProduto.js'
-import Carrinho from './Carrinho.js'
+import InputAdornment from '@material-ui/core/InputAdornment';
+import classNames from 'classnames';
 
 const TelaToda = styled.div`
     margin:0;
@@ -37,10 +29,18 @@ const Container = styled.section`
     display: flex;
     
 `
+const SuperiorProdutos = styled.section `
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 80vw;
+`
 const PromocaoSite = styled.div`
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: flex-end; 
+    align-items: center;
+    width: 30vw; 
 `
 const MaisZoom = styled(ZoomMais)`
     cursor: pointer;
@@ -49,7 +49,6 @@ const MaisZoom = styled(ZoomMais)`
         color: #363636;
     }
 `
-
 const MenosZoom = styled(ZoomMenos)`
     cursor: pointer;
     &&{
@@ -57,29 +56,59 @@ const MenosZoom = styled(ZoomMenos)`
         color: #363636;
     }
 `
-
 const ContainerZoom = styled.section`
-    displayswi: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    display: flex;
+    justify-content: center;
     align-items: center;
 `
-
+const Filtros = styled.section `
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-content: space-between;
+    align-items: center;
+    width: 45vw;
+`
+const IconeFiltro = styled(IconFilter)`
+    font-size: 2.5vw;
+    grid-area: 1/1/2/2;
+    justify-self: end;
+`
+const TituloFiltros = styled.p `
+    color: #363636;
+    font-size: 2vw;
+    font-weight: bold;
+    grid-area: 1/2/2/4;
+`
+const ContainerInput = styled.section`
+    display:flex;
+    width: 15vw;
+    justify-self: center;
+`
+const InputFiltroMin = styled(TextField)`  
+    flex-basis: 100%;
+    grid-area: 2/1/3/2;
+`
+const InputFiltroMax = styled(TextField)` 
+    grid-area: 2/2/3/3;
+    flex-basis: 100%;
+`
+const InputOrdem = styled(TextField)`
+    grid-area: 2/3/3/4;
+    flex-basis: 100%;
+`
 const QuadradoImg = styled.div`
     height: 15vw;
     width: 15vw;
     position: relative;
     overflow: hidden;
 `
-
 const FotoProduto = styled.img`
     width: 20vw;
     position: absolute;
     left: -20%;
     top: 0%;
- 
 `
-
 const Navegaçao = styled.nav`
     max-height: 80vh;
     border-bottom: 2px solid #ffe082;
@@ -105,20 +134,11 @@ const Categorias = styled.p`
         transform: scale(1.08);
     }
 `
-
 const ConteudoPrincipal = styled.div`
     color: #ff6f00;
     background-color: #fff8e1;
     padding: 2vw;
 `
-
-const SuperiorProdutos = styled.section`
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 80vw;
-`
-
 const Mostruario = styled.div`
     width: 80vw;
     display:grid;
@@ -126,18 +146,12 @@ const Mostruario = styled.div`
     grid-template-rows: 1fr 1fr 1fr; 
     margin-top: 4vw;
 `
-
 const Cupom1 = styled.img`
     width: 25vw; 
 `
-
 const Cupom2 = styled.img`
     width: 40vw; 
 `
-
-const Filtros = styled.section`
-`
-
 const BotaoMaisDetalhes = styled(Button)`
     font-size: 1vw;
     width: 10vw;
@@ -145,23 +159,6 @@ const BotaoMaisDetalhes = styled(Button)`
     font-size: 1vw;
     display: flex;
     justify-content: space-around;
-`
-
-const InputFiltro = styled(TextField)`
-    &&{
-        background-color: rgba(255, 143, 0, 0.2);
-        border-radius: 10px 10px 0 0;
-    }
-`
-
-const InputSelect = styled(FormControl)`
-    &&{
-        background-color: rgba(255, 143, 0, 0.2);
-        border-radius: 10px 10px 0 0;
-    }
-`
-const IconeFiltro = styled(IconFilter)`
-    font-size: 3vw;
 `
 const InferiorProdutos = styled.div`
     display: flex;
@@ -177,37 +174,17 @@ const LegendaProdutos = styled.div`
     justify-content: space-around;
     align-items: flex-start;
 `
-
-const TituloFiltros = styled.p`
-    color: #363636;
-    font-size: 2vw;
-    font-weight: bold;
-`
-
 const PrecoProduto = styled.p`
     margin: 0.5vw;
     font-size:1vw;
     color: #363636;
 `
-
 const TituloProduto = styled.p`
     margin: 0.5vw 0 0 0.5vw;
     font-size:1vw;
     color: #363636;
     font-weight: bold;
 `
-
-const Form = styled.div`
-        display: flex;
-        flex-wrap: nowrap;
-`
-
-const Parametros = styled.section`
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-around;
-`
-
 const CardProduto = styled.div`
     display: flex;
     flex-direction: column;
@@ -223,7 +200,6 @@ const CardProduto = styled.div`
         transform: scale(1.08)
     }
 `
-
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -269,8 +245,7 @@ const MyTheme = createMuiTheme({
         secondary: amber['A900']
     }
 })
-
-class HomeUsuario extends React.Component {
+class Produtos extends React.Component {
     state = {
         detalheProduto: {},
         paginaAtual: 'PRODUTOS',
@@ -281,7 +256,7 @@ class HomeUsuario extends React.Component {
         open: false,
         isZoom: false,
         isFiltrado: true,
-        produtosFiltrados: [],
+        listaFiltrada: [],
         produtos: [],
         categoria: 'all'
     };
@@ -298,7 +273,21 @@ class HomeUsuario extends React.Component {
                 window.alert('Erro!', error)
             })
     }
-
+    defineListaProdutos = () => { 
+        if (this.state.category === "all"){
+            this.setState({listaFiltrada: this.state.produtos})
+        }else{
+            this.setState({listaFiltrada: this.state.produtos.filter((produtos)=>{
+                if(produtos.category === this.state.categoria){
+                    return true
+                }else{
+                    return false
+                }
+            })
+        })
+        }
+ 
+    }
     onClickCarrinho = () => {
         this.setState({
             paginaAtual: this.state.paginaAtual === 'PRODUTOS' ? 'CARRINHO' : 'PRODUTOS'
@@ -312,92 +301,32 @@ class HomeUsuario extends React.Component {
 
         return pesquisa
     }
-
-    //filtrarNumero = () => {
-    //    const filtragem = this.state.produtos.filter((produto) => {
-//
-    //        if ((this.state.inputValorMaximo && this.state.inputValorMinimo) &&
-    //            (produto.preço >= this.state.inputValorMinimo && produto.preço <= this.state.inputValorMaximo)) {
-    //            return produto
-//
-    //        } if ((this.state.inputValorMaximo && this.state.inputValorMinimo === 0) &&
-    //            (produto.preço <= this.state.inputValorMaximo)) {
-    //            return produto
-//
-    //        } if ((this.state.inputValorMinimo && this.state.inputValorMaximo === 0) &&
-    //            (this.state.inputValorMinimo >= produto.preço)) {
-    //            return produto
-    //        }
-//
-    //        else if (this.state.inputValorMinimo === 0 && this.state.inputValorMaximo === 0) {
-    //        }
-    //    });
-    //    this.setState({
-    //        isfiltrado: true,
-    //        produtosFiltrados: filtragem,
-    //    })
-    //}
-
-
-    defineListaProdutos = () => {
-        const listaMaioresQueMinimo = this.state.produtos.filter(produto => {
-            if (this.state.valorMinimo === "") {
-                return true;
-            } else {
-                return produto.price >= this.state.valorInputMinimo;
-            }
-        }); 
-
-        const listaMenoresQueMaximo = this.state.produtos.filter(produto => {
-            if (this.state.valorMaximo === "") {
-                return true;
-            } else {
-                return produto.price <= this.state.valorInputMaximo;
-            }
-        }); 
-
-        const listaBusca = this.state.produtos.filter(produto => {
-            return produto.name.toLowerCase().indexOf(this.state.valorBuscar.toLowerCase()) !== -1;
-        })  
-
-        const produtosSite = listaBusca.filter(produto => {
-            return (listaMaioresQueMinimo.indexOf(produto) !== -1) && (listaMenoresQueMaximo.indexOf(produto) !== -1);
-        }); 
-
-        return produtosSite;
+    mudaValorMin = (event) =>{
+        this.setState({
+            valorMinimo: event.target.value
+        });
+    }
+    mudaValorMax = (event) =>{
+        this.setState({ valorMaximo: event.target.value });
     }
 
-    handleChangeOrdem = prop => event => {
-        this.setState({ [prop]: event.target.value });
-    };
+    mudaOrdem = (event) => {
+        this.setState({ ordem: event.target.value });
+    }
 
-    handleChangeValor = name => event => {
-        this.setState({ [name]: Number(event.target.value) });
-    };
-
-    handleClickOpen = () => {
-        this.setState({ open: true });
-    };
-    
     aumentaImagem = () => {
         this.setState({ isZoom: !this.state.isZoom })
+        console.log(this.state.produtos)
     }
 
-    escolheCategoria = (event) => {
-        this.setState({ categoria: event.target.value });
+    escolheCategoria = (palavra) => {
+        //this.setState({ categoria: 'Roupas'});
+        console.log(palavra)
     };
 
     diminuiImagem = () => {
         this.setState({ isZoom: !this.state.isZoom })
     }
-
-    handleCloseOk = () => {
-        this.setState({ open: false });
-    };
-
-    handleCloseCancel = () => {
-        this.setState({ open: false });
-    };
 
     onClickMaisDetalhes = (idProduto) => {
         const produtoEspecifico = this.state.produtos.filter((item) => {
@@ -414,71 +343,9 @@ class HomeUsuario extends React.Component {
         const { classes } = this.props;
         let cupomAparecendo = ''
         
-        const produtosCrescente = this.defineListaProdutos().sort(function (a, b) {
-            return (
-                a.price - b.price
-            )
-        })
-
-        const produtosDecrescente = this.defineListaProdutos().sort(function (a, b) {
-            return (
-                b.price - a.price
-            )
-        })
-
-        let produtosSite = []
-
-        if (this.state.ordem === "crescente") {
-            produtosSite = produtosCrescente.map(produto => {
-                return (
-                    <CardProduto>
-                    <QuadradoImg>
-                        <FotoProduto src={produto.photos[0]} alt='Foto do Produto' /></QuadradoImg>
-                    <InferiorProdutos>
-                        <LegendaProdutos>
-                            <TituloProduto>{produto.name}</TituloProduto>
-                            <PrecoProduto> R$ {produto.price},00 </PrecoProduto>
-                        </LegendaProdutos>
-                        <BotaoMaisDetalhes
-                            variant="contained"
-                            color="primary"
-                            aria-label="Add"
-                            className={classes.margin}
-                            onClick={() => this.onClickMaisDetalhes(produto.id)}
-                        >
-                            <MaisIcon className={classes.extendedIcon} />
-                            Detalhes
-                        </BotaoMaisDetalhes>
-                    </InferiorProdutos>
-                </CardProduto>
-            )
-        })} else if (this.state.ordem === "decrescente"){
-            produtosSite = produtosDecrescente.map(produto => {
-                return (
-                    <CardProduto>
-                        <QuadradoImg>
-                            <FotoProduto src={produto.photos[0]} alt='Foto do Produto' /></QuadradoImg>
-                        <InferiorProdutos>
-                            <LegendaProdutos>
-                                <TituloProduto>{produto.name}</TituloProduto>
-                                <PrecoProduto> R$ {produto.price},00 </PrecoProduto>
-                            </LegendaProdutos>
-                            <BotaoMaisDetalhes
-                                variant="contained"
-                                color="primary"
-                                aria-label="Add"
-                                className={classes.margin}
-                                onClick={() => this.onClickMaisDetalhes(produto.id)}
-                            >
-                                <MaisIcon className={classes.extendedIcon} />
-                                Detalhes
-                            </BotaoMaisDetalhes>
-                        </InferiorProdutos>
-                    </CardProduto>
-                )
-            })
-        } else {
-            produtosSite = this.state.produtos.map((produto) => {
+        console.log(`Produtos Filtrados são ${this.state.filtrados}`)
+        
+        let produtosSite = this.state.produtos.map((produto) => {
             return <CardProduto>
                 <QuadradoImg>
                     <FotoProduto src={produto.photos[0]} alt='Foto do Produto' /></QuadradoImg>
@@ -499,136 +366,119 @@ class HomeUsuario extends React.Component {
                 </BotaoMaisDetalhes>
                 </InferiorProdutos>
             </CardProduto>
-    })
-}
-
-switch (this.state.isZoom) {
-    case false:
-        cupomAparecendo = (<Cupom1 src={Promocional} alt='Código Promocional' />)
-        break;
-    case true:
-        cupomAparecendo = (<Cupom2 src={Promocional} alt='Código Promocional' />)
-        break;
-    default:
-        break;
-}
+        })
 
 
-if (this.state.paginaAtual === 'PRODUTOS') {
-    return (
-        <TelaToda>
-            <MuiThemeProvider>
-                <Container>
-                    <Navegaçao>
-                        <TituloNavegacao>Categorias</TituloNavegacao>
-                        <Categorias value='all' onClick={this.escolheCategoria}>Todas</Categorias>
-                        <Categorias value='acessorios' onClick={this.escolheCategoria}>Acessórios</Categorias>
-                        <Categorias value='convites' onClick={this.escolheCategoria}>Convites</Categorias>
-                        <Categorias value='decoracao' onClick={this.escolheCategoria}>Decoração</Categorias>
-                        <Categorias value='eco' onClick={this.escolheCategoria}>Eco</Categorias>
-                        <Categorias value='pets' onClick={this.escolheCategoria}>Pets</Categorias>
-                        <Categorias value='roupas' onClick={this.escolheCategoria}>Roupas</Categorias>
-                    </Navegaçao>
+        switch (this.state.isZoom) {
+            case false:
+                cupomAparecendo = (<Cupom1 src={Promocional} alt='Código Promocional' />)
+                break;
+            case true:
+                cupomAparecendo = (<Cupom2 src={Promocional} alt='Código Promocional' />)
+                break;
+            default:
+                break;
+        }
 
-                    <ConteudoPrincipal>
-                        <SuperiorProdutos>
-                            <PromocaoSite>
-                                <div>
-                                    {cupomAparecendo}
-                                </div>
-                                <ContainerZoom>
-                                    <MaisZoom onClick={this.aumentaImagem} />
-                                    <MenosZoom onClick={this.diminuiImagem} />
-                                </ContainerZoom>
-                            </PromocaoSite>
-                            <Filtros>
-                                <Button onClick={this.handleClickOpen} >
-                                    <IconeFiltro />&nbsp;
-                                <TituloFiltros>&nbsp; Filtros</TituloFiltros>
-                                </Button>
-                                <Button onClick={this.handleClickOpen}></Button>
-                                <Dialog
-                                    disableBackdropClick
-                                    disableEscapeKeyDown
-                                    open={this.state.open}
-                                    onClose={this.handleClose}
-                                >
-                                    <DialogTitle>Escolha os Filtros</DialogTitle>
-                                    <DialogContent>
-                                        <Form>
-                                            <InputFiltro
-                                                id="inputMaximo"
-                                                className={classNames(classes.margin, classes.textField)}
-                                                variant="filled"
-                                                color="primary"
-                                                label="Valor Máximo"
-                                                value={this.state.valorMaximo}
-                                                onChange={this.handleChangeValor('valorMaximo')}
-                                                InputProps={{
-                                                    endAdornment: <InputAdornment position="end">R$</InputAdornment>,
-                                                }}
-                                            />
-                                            <InputFiltro
-                                                id="inputMinimo"
-                                                className={classNames(classes.margin, classes.textField)}
-                                                color="primary"
-                                                variant="filled"
+
+        if (this.state.paginaAtual === 'PRODUTOS') {
+            return (
+                <TelaToda>
+                    <MuiThemeProvider>
+                        <Container>
+                            <Navegaçao>
+                                <TituloNavegacao>Categorias</TituloNavegacao>
+                                <Categorias value='all' onClick={this.escolheCategoria('All')}>Todas</Categorias>
+                                <Categorias value='Acessorios' onClick={this.escolheCategoria('Acessorios')}>Acessórios</Categorias>
+                                <Categorias value='Convites' onClick={this.escolheCategoria('Convites')}>Convites</Categorias>
+                                <Categorias value='Decoracao' onClick={this.escolheCategoria('Decoracao')}>Decoração</Categorias>
+                                <Categorias value='Eco' onClick={this.escolheCategoria('Eco')}>Eco</Categorias>
+                                <Categorias value='Eco2' onClick={this.escolheCategoria('Eco2')}>Eco</Categorias>
+                                <Categorias value='Pets' onClick={this.escolheCategoria('Pets')}>Pets</Categorias>
+                                <Categorias value='Roupas' OnClick={this.escolheCategoria('Roupas')}>Roupas</Categorias>
+                            </Navegaçao>
+            
+                            <ConteudoPrincipal>
+                                <SuperiorProdutos>
+                                    <PromocaoSite>
+                                        <div>
+                                            {cupomAparecendo}
+                                        </div>
+                                        <ContainerZoom>
+                                            <MaisZoom onClick={this.aumentaImagem} />
+                                            <MenosZoom onClick={this.diminuiImagem} />
+                                        </ContainerZoom>
+                                    </PromocaoSite>
+                                    <Filtros>
+                                        <IconeFiltro />
+                                        <TituloFiltros>Filtros</TituloFiltros>
+                                        <ContainerInput>
+                                            <InputFiltroMin 
                                                 label="Valor Mínimo"
-                                                value={this.state.valorMinimo}
-                                                onChange={this.handleChangeValor('valorMinimo')}
+                                                id="simple-start-adornment"
+                                                className={classNames(classes.margin, classes.textField)}
+                                                type="number"
                                                 InputProps={{
-                                                    endAdornment: <InputAdornment position="end">R$</InputAdornment>,
+                                                  startAdornment: <InputAdornment position="start">R$</InputAdornment>,
+                                                  endAdornment: <InputAdornment position="end">,00</InputAdornment>
                                                 }}
+                                                onChange={this.mudaValorMin}
                                             />
+                                        </ContainerInput>
+                                        <ContainerInput>
+                                            <InputFiltroMax 
+                                                label="Valor Máximo"
+                                                id="simple-start-adornment"
+                                                className={classNames(classes.margin, classes.textField)}
+                                                type="number"
+                                                InputProps={{
+                                                  startAdornment: <InputAdornment position="start">R$</InputAdornment>,
+                                                  endAdornment: <InputAdornment position="end">,00</InputAdornment>
+                                                }}
+                                                onChange={this.mudaValorMax}
+                                            />
+                                        </ContainerInput>
+                                        <ContainerInput>
+                                            <InputOrdem
+                                                id="standard-select-currency"
+                                                select
+                                                label="Ordenação"
+                                                className={classes.textField}
+                                                value={this.state.ordem}
+                                                onChange={this.mudaOrdem}
+                                                SelectProps={{
+                                                  MenuProps: {
+                                                    className: classes.menu,
+                                                  },
+                                                }}
+                                                margin="normal"
+                                            >
+                                                <MenuItem key = {'nenhuma'} value = {'nenhuma'}> Nenhuma </MenuItem>
+                                                <MenuItem key = {'crecente'} value = {'crecente'}> Crescente </MenuItem>
+                                                <MenuItem key = {'decrescente'} value = {'decrecente'}> Decrescente </MenuItem>
 
-
-                                            <InputSelect className={classes.formControl}>
-                                                <InputLabel className={classes.label}>Ordem Preço</InputLabel>
-                                                <Select
-                                                    native
-                                                    value={this.state.ordem}
-                                                    onChange={this.handleChangeOrdem('ordem')}
-                                                    input={<FilledInput name="ordem" id="filled-ordem-native-simple" />}
-                                                >
-                                                    <option value="nenhuma"></option>
-                                                    <option value="crecente">Crescente</option>
-                                                    <option value="decrecente">Decrescente</option>
-                                                </Select>
-                                            </InputSelect>
-                                        </Form>
-                                    </DialogContent>
-                                    <DialogActions>
-                                        <Button onClick={this.handleCloseCancel} color="primary">
-                                            Cancel
-                                                </Button>
-                                        <Button onClick={this.handleCloseOk} color="primary">
-                                            Ok
-                                                </Button>
-                                    </DialogActions>
-                                </Dialog>
-
-                            </Filtros>
-                        </SuperiorProdutos>
-
-                        <Mostruario>
-                            {produtosSite}
-                        </Mostruario>
-                    </ConteudoPrincipal>
-                </Container>
-
-            </MuiThemeProvider>
-        </TelaToda>
-    )
-} else if (this.state.paginaAtual === 'detalhes') {
-    return <DetalheProduto Produto={this.state.detalheProduto} />
-} else {
-    return <Carrinho />
-}
+                                            </InputOrdem>
+                                        </ContainerInput>
+                                    </Filtros>
+                                </SuperiorProdutos>
+                                            
+                                <Mostruario>
+                                    {produtosSite}
+                                </Mostruario>
+                            </ConteudoPrincipal>
+                        </Container>
+                                            
+                    </MuiThemeProvider>
+                </TelaToda>
+            )
+        } else {
+            return <DetalheProduto Produto={this.state.detalheProduto} />
+        }
     }
 }
 
-HomeUsuario.propTypes = {
+Produtos.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(HomeUsuario);
+export default withStyles(styles)(Produtos);

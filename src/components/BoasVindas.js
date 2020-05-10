@@ -6,8 +6,6 @@ import Elo4 from '../img/logo.png'
 import Button from '@material-ui/core/Button';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core'
 import amber from '@material-ui/core/colors/amber';
-import Vendedor from './Vendedor'
-
 
 const TemaBoasVindas = createMuiTheme({
   palette: {
@@ -76,9 +74,11 @@ const Frasesheader = styled.div`
   align-items: center;
   margin-right: 25vw;
 `
+
 const LogoElo = styled.img`
   height: 17vw;
 `
+
 const Frasesbody = styled.div`
 display: flex;
 flex-direction: column;
@@ -88,7 +88,7 @@ height: 55vh;
 width: 100vw;
 `
 
-export class AppContainer extends Component {
+export class BoasVindas extends Component {
   state = {
     paginaMostrada: 'boasVindas'    
   }
@@ -106,31 +106,22 @@ export class AppContainer extends Component {
     if(this.state.paginaMostrada === 'boasVindas'){
       return (
         <MuiThemeProvider theme={TemaBoasVindas}>     
-  
           <Fundo>
-        
             <ContainerHeader>
               <LogoElo src={Elo4} alt="simbolo elo4" />
-            
               <Frasesheader>
                 <Bemvindo>Seja Bem Vindo ao elo4!</Bemvindo>
-                <Bemvindo2>Personalizacao a sua mao</Bemvindo2>
+                <Bemvindo2>Personalização a sua mão</Bemvindo2>
               </Frasesheader>
             </ContainerHeader>
-
             <Frasesbody>
               <Bemvindo3>O QUER DESEJA FAZER HOJE?</Bemvindo3>
-
               <Botoeshome>
-
                 <Botaoescolha onClick={this.mostraUsuario} variant="outlined" color="primary">Quero comprar</Botaoescolha>
                 <Botaoescolha onClick={this.mostraVendedor} variant="outlined" color="primary">Quero vender</Botaoescolha>
-                <Botaoescolha onClick={this.mostraCarrinho} variant="outlined" color="primary">Carrinho</Botaoescolha>
               </Botoeshome>
             </Frasesbody>
-
           </Fundo>
-
         </MuiThemeProvider>
       )
     } else if (this.state.paginaMostrada === 'usuario'){
@@ -139,7 +130,7 @@ export class AppContainer extends Component {
       )
     } else{
       return(
-        <Vendedor />
+        <Usuario MudaEstadoPagina={'vendedor'} />
       )
     }    
   }
