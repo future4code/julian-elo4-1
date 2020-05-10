@@ -135,15 +135,7 @@ export class AppContainer extends Component {
       )
     } else if (this.state.paginaMostrada === 'usuario'){
       return(
-<<<<<<< HEAD
-        <HomeUsuario />
-      )
-    } elsUsuarioiAtualizaEstado = {'vendedor'}s.state.paginaMostrada === 'carrinho'){
-      return(
-        <Carrinho />
-=======
         <Usuario />
->>>>>>> df701e616a45ec8ff2288ba857d43e16b6745c70
       )
     } else{
       return(
