@@ -139,7 +139,7 @@ export class AppContainer extends Component {
       return(
         <HomeUsuario />
       )
-    } else if (this.state.paginaMostrada === 'carrinho'){
+    } elsUsuarioiAtualizaEstado = {'vendedor'}s.state.paginaMostrada === 'carrinho'){
       return(
         <Carrinho />
       )
