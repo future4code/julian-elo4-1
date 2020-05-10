@@ -124,11 +124,12 @@ const TituloNavegacao = styled.p`
     font-weight: bold;
     font-size: 2vw;
 `
-const Categorias = styled.p`
+const Categorias = styled.a`
     color: #363636;
     font-size: 1.5vw;
     cursor: pointer;
     transition: all 0.1s ease; 
+    text-decoration: none;
     :hover{
         color: #ff6f00;
         transform: scale(1.08);
@@ -256,9 +257,9 @@ class Produtos extends React.Component {
         open: false,
         isZoom: false,
         isFiltrado: true,
-        listaFiltrada: [],
         produtos: [],
-        categoria: 'all'
+        filtraCategoria: false,
+        produtosCategoria: [],
     };
 
     componentDidMount() {
@@ -288,6 +289,21 @@ class Produtos extends React.Component {
         }
  
     }
+
+    selecionaCategoria = (categoria) => {
+        const categoriaSelecionada = this.state.produtos.filter(produto => {
+          if(produto.category === categoria) {
+            return true
+          }
+        })
+        this.setState({produtosCategoria: categoriaSelecionada})
+        this.setState({filtraCategoria: true})
+    }
+
+    exibeTodas = () => {
+      this.setState({filtraCategoria: false})
+    }
+
     onClickCarrinho = () => {
         this.setState({
             paginaAtual: this.state.paginaAtual === 'PRODUTOS' ? 'CARRINHO' : 'PRODUTOS'
@@ -311,18 +327,14 @@ class Produtos extends React.Component {
     }
 
     mudaOrdem = (event) => {
-        this.setState({ ordem: event.target.value });
+        this.setState({ ordem: event.target.value })
+        console.log(this.state.ordem);
     }
 
     aumentaImagem = () => {
         this.setState({ isZoom: !this.state.isZoom })
         console.log(this.state.produtos)
     }
-
-    escolheCategoria = (palavra) => {
-        //this.setState({ categoria: 'Roupas'});
-        console.log(palavra)
-    };
 
     diminuiImagem = () => {
         this.setState({ isZoom: !this.state.isZoom })
@@ -342,9 +354,19 @@ class Produtos extends React.Component {
     render() {
         const { classes } = this.props;
         let cupomAparecendo = ''
-        
-        console.log(`Produtos Filtrados são ${this.state.filtrados}`)
-        
+
+        const quaisCategorias = this.state.produtos.map((produto) => {
+            return produto.category
+            }).sort().filter(function (elem, index, self) {
+                return index === self.indexOf(elem); /*Retira os duplicados */
+            }).map((produto) => {
+                    return (
+                      <Categorias href = '#' onClick = {() => this.selecionaCategoria(produto)} >
+                        {produto}
+                      </Categorias>
+                    )
+            });               
+         
         let produtosSite = this.state.produtos.map((produto) => {
             return <CardProduto>
                 <QuadradoImg>
@@ -388,14 +410,8 @@ class Produtos extends React.Component {
                         <Container>
                             <Navegaçao>
                                 <TituloNavegacao>Categorias</TituloNavegacao>
-                                <Categorias value='all' onClick={this.escolheCategoria('All')}>Todas</Categorias>
-                                <Categorias value='Acessorios' onClick={this.escolheCategoria('Acessorios')}>Acessórios</Categorias>
-                                <Categorias value='Convites' onClick={this.escolheCategoria('Convites')}>Convites</Categorias>
-                                <Categorias value='Decoracao' onClick={this.escolheCategoria('Decoracao')}>Decoração</Categorias>
-                                <Categorias value='Eco' onClick={this.escolheCategoria('Eco')}>Eco</Categorias>
-                                <Categorias value='Eco2' onClick={this.escolheCategoria('Eco2')}>Eco</Categorias>
-                                <Categorias value='Pets' onClick={this.escolheCategoria('Pets')}>Pets</Categorias>
-                                <Categorias value='Roupas' OnClick={this.escolheCategoria('Roupas')}>Roupas</Categorias>
+                                <Categorias href="#" onClick={this.filtraCategoria}>Todas</Categorias>
+                                {quaisCategorias}
                             </Navegaçao>
             
                             <ConteudoPrincipal>
