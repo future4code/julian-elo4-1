@@ -5,30 +5,41 @@ import Button from '@material-ui/core/Button';
 import ShopIcon from '@material-ui/icons/AddShoppingCart';
 import Footer from './Footer'
 
+const TituloCarrinho = styled.h2`
+padding-left: 30vw;
+font-size: 40px;
+`
+
 const Pontas = styled.div`
     height: 20vh;
     background-color: #ff8f00;
     color: #fff8e1;
 `
-const BotaoAdicionar = styled.div`
-    display: flex;
+const BotaoAdicionar = styled(Button)`
+margin-top: 40vh;
+
 
 `
-const BotaoFinalizar = styled.div`
-    display:flex ;
-    justify-content:center;
+const BotaoFinalizar = styled(Button)`
+    margin-top: 40vh;
     
 `
 const ProdutosDaLoja = styled.div`
-    padding: 30px;
+    padding-left: 7vw;
+    margin-top:5vh;;
+
   
 `
 const LegendaDosProdutos = styled.div`
 
 `
 
-const ImagemDoProduto = styled.div`
 
+const ImagemDoProduto = styled.div`
+float: left;
+display:flex;
+justify-content:center;
+flex-direction: column;
 `
 
 const DivDosProdutos = styled.div`
@@ -54,7 +65,7 @@ const PrecoDoProduto = styled.p`
     font-weight: bold;
 `
 const FotoDoProduto = styled.img`
-height: 12vw;
+    height: 12vw;
     width: 12vw;
     -webkit-transition: all 0.5s ease; /* Safari e Chrome */
     -moz-transition: all 0.5s ease; /* Firefox */
@@ -66,10 +77,12 @@ height: 12vw;
 
 const Container = styled.div`
     padding-top: 30px;
+    padding-bottom: 30px;
     height: 100vh;
     width: 100vw;
     color: #ff6f00;
     background-color: #fff8e1;
+    padding-top:5vh;
      
 `
 
@@ -90,7 +103,7 @@ class Carrinho extends React.Component {
                 "category": "Decoração",
                 "price": 120,
                 "id": "JmtX1h8Ry1qt2xLpz8SB"
-            },
+            },           
             {
                 "name": "Máscara Anatômica ",
                 "installments": 3,
@@ -145,33 +158,34 @@ class Carrinho extends React.Component {
                 <Cabecalho />
                 <Container>
 
-                    <h2>Bem vindo ao seu carrinho de compras!</h2>
-
+                    <TituloCarrinho>Bem vindo ao seu carrinho de compras!</TituloCarrinho>
+                
+                    <DivDosProdutos>{produtosDoSite}</DivDosProdutos>
+                    
                     <BotaoAdicionar>
                         <Button
                             variant="fab"
                             color="primary"
-                            size="medium" >
-                            <ShopIcon />
+                            size="small" >
+                            <ShopIcon
+                             />
                         </Button>
                     </BotaoAdicionar>
+
 
                     <BotaoFinalizar>
                         <Button
                             variant="contained"
                             color="primary"
-                            size="small" >
+                            size="large" >
                             Finalizar compra
-                </Button>
-                    </BotaoFinalizar>
-
-                    <DivDosProdutos>{produtosDoSite}</DivDosProdutos>
+                        </Button>
+                    </BotaoFinalizar>                    
 
                 </Container>
-
-                <RodapeSite>
-                    <Footer></Footer>
-                </RodapeSite>
+  
+                    <Footer />                  
+                
             </div>
         )
     };
