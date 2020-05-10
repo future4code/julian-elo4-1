@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
-import HomeUsuario from './HomeUsuario'
-import Carrinho from './Carrinho'
+import Usuario from './Usuario'
 import styled from 'styled-components';
 import FundoAmarelo from '../img/fundoamarelo.jpg';
 import Elo4 from '../img/logo.png'
 import Button from '@material-ui/core/Button';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core'
 import amber from '@material-ui/core/colors/amber';
-import Vendedor from './AdicionaProduto'
+import Vendedor from './Vendedor'
 
 
 const TemaBoasVindas = createMuiTheme({
@@ -97,13 +96,12 @@ export class AppContainer extends Component {
   mostraUsuario = () => {
     this.setState({ paginaMostrada: 'usuario'})
   }
+
   mostraVendedor = () => {
     this.setState({ paginaMostrada: 'vendedor'})
   }
-  mostraCarrinho = () => {
-     this.setState({ paginaMostrada: 'carrinho'})
-   }
-   render() {
+
+  render() {
     
     if(this.state.paginaMostrada === 'boasVindas'){
       return (
@@ -137,20 +135,12 @@ export class AppContainer extends Component {
       )
     } else if (this.state.paginaMostrada === 'usuario'){
       return(
-        <HomeUsuario />
-      )
-    } else if (this.state.paginaMostrada === 'carrinho'){
-      return(
-        <Carrinho />
+        <Usuario />
       )
     } else{
       return(
         <Vendedor />
       )
     }    
-    
-    
-    
   }
-
 }
