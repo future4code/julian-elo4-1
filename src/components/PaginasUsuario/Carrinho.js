@@ -7,41 +7,48 @@ const TituloCarrinho = styled.h2`
 padding-left: 30vw;
 font-size: 40px;
 `
+
 const BotaoAdicionar = styled(Button)`
 margin-top: 40vh;
 `
+
 const BotaoFinalizar = styled(Button)`
     margin-top: 40vh;
     
 `
+
 const ProdutosDaLoja = styled.div`
     padding-left: 7vw;
     margin-top:5vh;;
 `
+
 const LegendaDosProdutos = styled.div`
 `
+
 const ImagemDoProduto = styled.div`
 float: left;
 display:flex;
 justify-content:center;
 flex-direction: column;
 `
+
 const DivDosProdutos = styled.div`
 `
-const RodapeSite = styled.div`
-`
+
 const TituloDoProduto = styled.p`
     margin: 0.5vw 0 0 0.5vw;
     font-size:1vw;
     color: #363636;
     font-weight: bold;
 `
+
 const PrecoDoProduto = styled.p`
     margin: 0.5vw 0 0 0.5vw;
     font-size:1vw;
     color: #363636;
     font-weight: bold;
 `
+
 const FotoDoProduto = styled.img`
     height: 12vw;
     width: 12vw;
@@ -51,6 +58,7 @@ const FotoDoProduto = styled.img`
     -o-transition: all 0.5s ease; /* Opera */
     transition: all 0.5s ease;
 `
+
 const Container = styled.div`
     padding-top: 30px;
     padding-bottom: 30px;
@@ -60,6 +68,7 @@ const Container = styled.div`
     background-color: #fff8e1;
     padding-top:5vh;
 `
+
 class Carrinho extends React.Component {
     state = {
         valorMaximo: '',

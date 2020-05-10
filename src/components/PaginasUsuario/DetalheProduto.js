@@ -10,8 +10,7 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core'
 import amber from '@material-ui/core/colors/amber';
 import ButtonBack from '@material-ui/core/Button'
 import BackIcon from '@material-ui/icons/ChevronLeft'
-import HomeUsuario from './Produtos.js'
-import Carrinho from './Carrinho'
+import Produtos from './Produtos.js'
 
 const temaDetalheProduto = createMuiTheme({
     palette: {
@@ -29,6 +28,7 @@ const Container = styled.div`
 
     h2, h3 {
         color: #E47106;
+        width: 40vw;
     }
 `
 const Galeria = styled.div`
@@ -160,10 +160,8 @@ export class DetalheProduto extends Component {
                     </Container>
                 </MuiThemeProvider>
             )
-        } else if (this.state.paginaAtual === 'CARRINHO') {
-            return <Carrinho />
         } else {
-            return <HomeUsuario />
+            return <Produtos />
         }
     }
 }

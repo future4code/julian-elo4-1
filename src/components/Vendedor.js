@@ -48,12 +48,14 @@ const TituloForm = styled.h1`
     color: #363636;
     margin: 5vw 0;
 `
+
 const TelaToda = styled.div`
     width: 100vw;
     background-color: #fff8e1;
     color: #363636;
     min-height: 150vh;
 `
+
 const ConteudoPrincipal = styled.div`
     width: 100vw;
     display: flex;
@@ -62,6 +64,7 @@ const ConteudoPrincipal = styled.div`
     align-items: center;
     justify-content: space-between;
 `
+
 const PerfilVendedor = styled.section`
     width: 100vw;
     height: 10vw;
@@ -70,15 +73,18 @@ const PerfilVendedor = styled.section`
     justify-content: center;
     background-color: #ffe082;
 `
+
 const ImageProfile = styled.img`
     border-radius:50%;
     width: 8vw;
 `
+
 const TextProfile = styled.div `
     display:flex;
     flex-direction: column;    
     margin-left: 5vw;
 `
+
 const TextProfileh2 = styled.h2 `
     margin: 0;
     padding: 0;
@@ -86,12 +92,14 @@ const TextProfileh2 = styled.h2 `
     font-weight: bold;
     color: #363636;
 `
+
 const TextProfileP = styled.p `
     color: wheat;
     margin: 0;
     padding: 0;
     color: #363636;
 `
+
 const ConteinerForm = styled.div` 
     min-height: 100vh;
     display:flex;
@@ -100,53 +108,66 @@ const ConteinerForm = styled.div`
     align-items: left;
     width:40vw;
 `
+
 const ContainerInputName = styled.div`
     width: 40vw;
     display: flex;
 `
+
 const InputName = styled(TextField)`
     flex-basis: 100%;
 `
+
 const InputsLadoALado = styled.section `
     display: flex;
     justify-content: space-around;
     align-items: center;
     margin: 1vw 0;
 `
+
 const ContainerInputCategoria = styled.div`
     width: 14vw;
     display: flex;
 `
+
 const InputCategoria = styled(TextField)`
     flex-basis: 100%;
 `
+
 const ContainerInputParcelas = styled.div`
     display: flex;
     width: 13vw;
 `
+
 const ContainerInputPreco = styled.div`
     display: flex;
     width: 12vw;
 `
+
 const InputPreco = styled(TextField)`
     flex-basis: 100%;
 `
+
 const ContainerInputLinhas = styled.div `
     display: flex;
     width: 40vw;
     height: 10vw;
 `
+
 const ContainerBotao = styled.section`
     display: flex;
     width: 15vw;
     margin: 5vw;
 `
+
 const BotaoEnviar = styled(Button)`
     flex-basis: 100%;
 `
+
 const InputLinhas = styled(TextField)`
     flex-basis: 100%;
 `
+
 const MyTheme = createMuiTheme({
     palette: {
         primary: {
@@ -185,63 +206,64 @@ const categorias = [
 
 const numParcelas = [
     {
-        value: '1',
+        value: 1,
         label: '1x',
     },
     {
-        value: '2',
+        value: 2,
         label: '2x',
     },
     {
-        value: '3',
+        value: 3,
         label: '3x',
     },
     {
-        value: '4',
+        value: 4,
         label: '4x',
     },
     {
-        value: '5',
+        value: 5,
         label: '5x',
     },
     {
-        value: '6',
+        value: 6,
         label: '6x',
     },
     {
-        value: '7',
+        value: 7,
         label: '7x',
     },
     {
-        value: '8',
+        value: 8,
         label: '8x',
     },
     {
-        value: '9',
+        value: 9,
         label: '9x',
     },
     {
-        value: '10',
+        value: 10,
         label: '10x',
     },
     {
-        value: '11',
+        value: 11,
         label: '11x',
     },
     {
-        value: '12',
+        value: 12,
         label: '12x',
     },
 ];
+
 class Vendedor extends React.Component {
     state = {
         valueName: '',
         valueDescription: '',
-        valuePrice: '',
+        valuePrice: 0,
         valuePaymentMethod: '',
         valueCategory: '',
         valuePhotos: '',
-        valueInstallments: '',
+        valueInstallments: 0
     };
 
     mudaNome = () => event => {
@@ -253,7 +275,7 @@ class Vendedor extends React.Component {
     };
 
     mudaValor = () => event => {
-        this.setState({ valuePrice: event.target.value });
+        this.setState({ valuePrice: Number(event.target.value) });
     };
     
     mudaPagamento = () => event => {
@@ -269,11 +291,10 @@ class Vendedor extends React.Component {
     };
     
     mudaParcelas = () => event => {
-        this.setState({ valueInstallments: event.target.value });
+        this.setState({ valueInstallments: Number(event.target.value) });
     };
 
     enviarProduto = () => {
-        
         const body = {
             name: this.state.valueName,
             description: this.state.valueDescription,
@@ -284,13 +305,7 @@ class Vendedor extends React.Component {
             installments: this.state.valueInstallments
         }
 
-        axios.post("https://us-central1-labenu-apis.cloudfunctions.net/eloFourOne/products", body,
-            {
-                headers: {
-                    ContentType: 'application/json'
-                }
-            })
-            .then(resposta => {
+        axios.post("https://us-central1-labenu-apis.cloudfunctions.net/eloFourOne/products", body).then(resposta => {
                 console.log("UHUL DEU CERTO!!!!!", resposta)
             })
             .catch(error => {
@@ -301,13 +316,13 @@ class Vendedor extends React.Component {
         this.setState({
             valueName: '',
             valueDescription: '',
-            valuePrice: '',
+            valuePrice: 0,
             valuePaymentMethod: '',
             valueCategory: '',
             valuePhotos: '',
-            valueInstallments: '',
+            valueInstallments: 0,
         })
-    };
+    }
     
     render() {
         const { classes } = this.props;
@@ -392,6 +407,7 @@ class Vendedor extends React.Component {
                                             label="Preço (Sem vírgula)"
                                             id="simple-start-adornment"
                                             className={classNames(classes.margin, classes.textField)}
+                                            type="number"
                                             InputProps={{
                                               startAdornment: <InputAdornment position="start">R$</InputAdornment>,
                                               endAdornment: <InputAdornment position="end">,00</InputAdornment>
