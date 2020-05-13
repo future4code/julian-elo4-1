@@ -6,12 +6,25 @@
 //
 
 import React from 'react'
+import './App.css';
 import JssProvider from 'react-jss/lib/JssProvider'
 import { create } from 'jss'
 import { MuiThemeProvider, createGenerateClassName, jssPreset } from '@material-ui/core/styles'
 import { createMuiTheme } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { AppContainer } from './components/AppContainer'
+import { BoasVindas } from './components/BoasVindas'
+// import amber from '@material-ui/core/colors/amber';
+
+const MyTheme = createMuiTheme({
+    palette:{
+        primary: {
+            main: '#ff8f00'
+        },
+        secondary: {
+            main: '#fff8e1'
+        }
+    }
+})
 
 const generateClassName = createGenerateClassName()
 const jss = create({
@@ -19,14 +32,14 @@ const jss = create({
 	insertionPoint: document.getElementById('jss-insertion-point'),
 })
 
-const theme = createMuiTheme()
+// const theme = createMuiTheme()
 
 function App() {
 	return (
 		<JssProvider jss={jss} generateClassName={generateClassName}>
-			<MuiThemeProvider theme={theme}>
+			<MuiThemeProvider theme={MyTheme}>
 				<CssBaseline />
-				<AppContainer />
+				<BoasVindas />
 			</MuiThemeProvider>
 		</JssProvider>
 	)
